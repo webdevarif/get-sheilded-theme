@@ -11,6 +11,7 @@ namespace GetShieldedTheme\Core;
 use GetShieldedTheme\Frontend\Scripts as FrontendScripts;
 use GetShieldedTheme\Admin\Scripts as AdminScripts;
 use GetShieldedTheme\Admin\Templates;
+use GetShieldedTheme\Admin\SettingsAPI;
 use GetShieldedTheme\Blocks\BlockRegistry;
 
 class Theme {
@@ -59,6 +60,7 @@ class Theme {
         new FrontendScripts();
         new AdminScripts();
         new Templates();
+        new SettingsAPI();
         new BlockRegistry();
     }
     

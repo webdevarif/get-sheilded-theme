@@ -56,13 +56,7 @@ class Scripts {
             GST_THEME_VERSION
         );
         
-        // Register component styles
-        wp_register_style(
-            'gst-frontend-components',
-            GST_THEME_URL . '/dist/frontend/components.css',
-            array('gst-frontend-main'),
-            GST_THEME_VERSION
-        );
+        // Components don't have separate CSS - styles are included in main.css
     }
     
     /**
@@ -75,7 +69,6 @@ class Scripts {
         
         // Enqueue components on pages that need them
         if (is_front_page() || is_page() || is_single()) {
-            wp_enqueue_style('gst-frontend-components');
             wp_enqueue_script('gst-frontend-components');
         }
         

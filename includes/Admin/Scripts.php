@@ -23,15 +23,30 @@ class Scripts {
      * Register admin scripts and styles
      */
     public function register_admin_scripts($hook) {
+        // Debug: Log all hooks
+        error_log('GST: Admin script hook called: ' . $hook);
+        
         // Only load on our admin pages
         if (strpos($hook, 'get-shielded') === false) {
+            error_log('GST: Hook does not contain get-shielded, skipping');
             return;
         }
+        
+        error_log('GST: Hook contains get-shielded, loading scripts');
+        
+        $css_url = GST_THEME_URL . '/dist/admin/index.css';
+        $js_url = GST_THEME_URL . '/dist/admin/index.js';
+        
+        // Debug: Log the URLs being generated
+        error_log('GST: CSS URL: ' . $css_url);
+        error_log('GST: JS URL: ' . $js_url);
+        error_log('GST: Theme URL: ' . GST_THEME_URL);
+        error_log('GST: Hook: ' . $hook);
         
         // Admin React app styles (built with Vite)
         wp_enqueue_style(
             'gst-admin-app',
-            GST_THEME_URL . '/dist/admin/index.css',
+            $css_url,
             array(),
             GST_THEME_VERSION
         );
@@ -39,7 +54,7 @@ class Scripts {
         // Admin React app script (built with Vite)
         wp_enqueue_script(
             'gst-admin-app',
-            GST_THEME_URL . '/dist/admin/index.js',
+            $js_url,
             array(),
             GST_THEME_VERSION,
             true
@@ -47,7 +62,7 @@ class Scripts {
         
         // Pass WordPress data to React app
         wp_localize_script('gst-admin-app', 'gstAdminData', array(
-            'apiUrl' => rest_url('wp/v2/'),
+            'apiUrl' => rest_url('gst/v1/'),
             'nonce' => wp_create_nonce('wp_rest'),
             'currentUser' => wp_get_current_user(),
             'adminUrl' => admin_url(),
@@ -59,7 +74,7 @@ class Scripts {
      * Add admin menu pages
      */
     public function add_admin_menu() {
-        // Main theme settings page
+        // Main theme settings page - directly shows the React app
         add_menu_page(
             __('Get Shielded Theme', 'get-shielded-theme'),
             __('Get Shielded', 'get-shielded-theme'),
@@ -73,11 +88,20 @@ class Scripts {
         // Sub-menu pages
         add_submenu_page(
             'get-shielded-settings',
-            __('Theme Settings', 'get-shielded-theme'),
-            __('Settings', 'get-shielded-theme'),
+            __('Welcome', 'get-shielded-theme'),
+            __('Welcome', 'get-shielded-theme'),
             'manage_options',
             'get-shielded-settings',
             array($this, 'render_admin_page')
+        );
+        
+        add_submenu_page(
+            'get-shielded-settings',
+            __('Theme Settings', 'get-shielded-theme'),
+            __('Theme', 'get-shielded-theme'),
+            'manage_options',
+            'get-shielded-theme',
+            array($this, 'render_theme_redirect')
         );
         
         add_submenu_page(
@@ -86,16 +110,19 @@ class Scripts {
             __('Blocks', 'get-shielded-theme'),
             'manage_options',
             'get-shielded-blocks',
-            array($this, 'render_admin_page')
+            array($this, 'render_blocks_redirect')
         );
         
+        // Add Templates submenu manually at the end
         add_submenu_page(
             'get-shielded-settings',
             __('Templates', 'get-shielded-theme'),
             __('Templates', 'get-shielded-theme'),
             'manage_options',
-            'edit.php?post_type=gst_theme_templates'
+            'edit.php?post_type=gst_theme_templates',
+            null
         );
+        
     }
     
     /**
@@ -105,6 +132,36 @@ class Scripts {
         ?>
         <div class="wrap">
             <div id="gst-admin-app"></div>
+        </div>
+        <?php
+    }
+    
+    /**
+     * Render theme redirect - redirects to main page with theme tab
+     */
+    public function render_theme_redirect() {
+        ?>
+        <script>
+            // Redirect to main page with theme tab
+            window.location.href = '<?php echo admin_url('admin.php?page=get-shielded-settings&tab=theme'); ?>';
+        </script>
+        <div class="wrap">
+            <p>Redirecting to theme settings...</p>
+        </div>
+        <?php
+    }
+    
+    /**
+     * Render blocks redirect - redirects to main page with blocks tab
+     */
+    public function render_blocks_redirect() {
+        ?>
+        <script>
+            // Redirect to main page with blocks tab
+            window.location.href = '<?php echo admin_url('admin.php?page=get-shielded-settings&tab=blocks'); ?>';
+        </script>
+        <div class="wrap">
+            <p>Redirecting to blocks...</p>
         </div>
         <?php
     }

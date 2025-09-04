@@ -1,10 +1,33 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Settings, Blocks, Shield } from 'lucide-react';
+import { Settings, Blocks, Shield, Home } from 'lucide-react';
+import { Toaster } from 'sonner';
+import SettingsPage from './Settings';
 
 const App: React.FC = () => {
+  const [currentTab, setCurrentTab] = useState('welcome');
+
+  // Get tab from URL parameter
+  useEffect(() => {
+    console.log('App component mounted');
+    const urlParams = new URLSearchParams(window.location.search);
+    const tab = urlParams.get('tab') || 'welcome';
+    console.log('Current tab from URL:', tab);
+    setCurrentTab(tab);
+  }, []);
+
+  // Update URL when tab changes
+  const handleTabChange = (value: string) => {
+    setCurrentTab(value);
+    const url = new URL(window.location.href);
+    url.searchParams.set('tab', value);
+    window.history.replaceState({}, '', url.toString());
+  };
+
+  console.log('App component rendering, currentTab:', currentTab);
+
   return (
     <div className="min-h-screen bg-gray-50 p-6">
       <div className="max-w-7xl mx-auto">
@@ -18,15 +41,15 @@ const App: React.FC = () => {
           </p>
         </div>
 
-        <Tabs defaultValue="overview" className="w-full">
+        <Tabs value={currentTab} onValueChange={handleTabChange} className="w-full">
           <TabsList className="grid w-full grid-cols-4">
-            <TabsTrigger value="overview">Overview</TabsTrigger>
-            <TabsTrigger value="settings">Settings</TabsTrigger>
+            <TabsTrigger value="welcome">Welcome</TabsTrigger>
+            <TabsTrigger value="theme">Theme</TabsTrigger>
             <TabsTrigger value="blocks">Blocks</TabsTrigger>
             <TabsTrigger value="help">Help</TabsTrigger>
           </TabsList>
 
-          <TabsContent value="overview" className="mt-6">
+          <TabsContent value="welcome" className="mt-6">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               <Card>
                 <CardHeader>
@@ -39,7 +62,10 @@ const App: React.FC = () => {
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <Button className="w-full">
+                  <Button 
+                    className="w-full"
+                    onClick={() => handleTabChange('theme')}
+                  >
                     Open Settings
                   </Button>
                 </CardContent>
@@ -56,7 +82,11 @@ const App: React.FC = () => {
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <Button className="w-full" variant="outline">
+                  <Button 
+                    className="w-full" 
+                    variant="outline"
+                    onClick={() => handleTabChange('blocks')}
+                  >
                     Manage Blocks
                   </Button>
                 </CardContent>
@@ -124,18 +154,8 @@ const App: React.FC = () => {
             </div>
           </TabsContent>
 
-          <TabsContent value="settings" className="mt-6">
-            <Card>
-              <CardHeader>
-                <CardTitle>Theme Settings</CardTitle>
-                <CardDescription>
-                  Configure your theme preferences and options
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <p className="text-gray-600">Settings panel coming soon...</p>
-              </CardContent>
-            </Card>
+          <TabsContent value="theme" className="mt-6">
+            <SettingsPage />
           </TabsContent>
 
           <TabsContent value="blocks" className="mt-6">
@@ -160,36 +180,124 @@ const App: React.FC = () => {
           </TabsContent>
 
           <TabsContent value="help" className="mt-6">
-            <Card>
-              <CardHeader>
-                <CardTitle>Help & Documentation</CardTitle>
-                <CardDescription>
-                  Resources and guides for using the theme
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  <div>
-                    <h4 className="font-medium mb-2">Quick Start</h4>
-                    <p className="text-sm text-gray-600 mb-2">1. Run <code>npm run dev</code> for development</p>
-                    <p className="text-sm text-gray-600 mb-2">2. Add ShadCN components with <code>npx shadcn@latest add [component]</code></p>
-                    <p className="text-sm text-gray-600">3. Use GSAP animation classes for smooth effects</p>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <Card>
+                <CardHeader>
+                  <CardTitle>Quick Start Guide</CardTitle>
+                  <CardDescription>
+                    Get up and running with the theme quickly
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-4">
+                    <div>
+                      <h4 className="font-medium mb-2">Development Setup</h4>
+                      <ul className="text-sm text-gray-600 space-y-1">
+                        <li>1. Run <code className="bg-gray-100 px-1 rounded">npm run dev</code> for development</li>
+                        <li>2. Run <code className="bg-gray-100 px-1 rounded">npm run build</code> for production</li>
+                        <li>3. Run <code className="bg-gray-100 px-1 rounded">npm run build:admin</code> for admin assets</li>
+                      </ul>
+                    </div>
+                    
+                    <div>
+                      <h4 className="font-medium mb-2">Adding Components</h4>
+                      <ul className="text-sm text-gray-600 space-y-1">
+                        <li>• <code className="bg-gray-100 px-1 rounded">npx shadcn@latest add [component]</code></li>
+                        <li>• Use ShadCN UI for admin interface</li>
+                        <li>• Use Tailwind CSS for frontend styling</li>
+                      </ul>
+                    </div>
                   </div>
-                  
-                  <div>
-                    <h4 className="font-medium mb-2">Animation Classes</h4>
-                    <ul className="text-sm text-gray-600 space-y-1">
-                      <li>• <code>.gsap-fade-in-up</code> - Fade in with upward motion</li>
-                      <li>• <code>.gsap-scroll-trigger</code> - Animate on scroll</li>
-                      <li>• <code>.gsap-hover-lift</code> - Lift effect on hover</li>
-                    </ul>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader>
+                  <CardTitle>Animation Classes</CardTitle>
+                  <CardDescription>
+                    GSAP animation classes for smooth effects
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-2">
+                    <div className="flex justify-between">
+                      <code className="bg-gray-100 px-2 py-1 rounded text-xs">.gsap-fade-in-up</code>
+                      <span className="text-xs text-gray-600">Fade in with upward motion</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <code className="bg-gray-100 px-2 py-1 rounded text-xs">.gsap-scroll-trigger</code>
+                      <span className="text-xs text-gray-600">Animate on scroll</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <code className="bg-gray-100 px-2 py-1 rounded text-xs">.gsap-hover-lift</code>
+                      <span className="text-xs text-gray-600">Lift effect on hover</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <code className="bg-gray-100 px-2 py-1 rounded text-xs">.gsap-scale-in</code>
+                      <span className="text-xs text-gray-600">Scale in animation</span>
+                    </div>
                   </div>
-                </div>
-              </CardContent>
-            </Card>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader>
+                  <CardTitle>Theme Structure</CardTitle>
+                  <CardDescription>
+                    Understanding the theme architecture
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-2 text-sm">
+                    <div className="flex justify-between">
+                      <span className="font-medium">Frontend:</span>
+                      <span className="text-gray-600">Webpack + GSAP + Sass</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="font-medium">Admin:</span>
+                      <span className="text-gray-600">Vite + React + ShadCN</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="font-medium">Gutenberg:</span>
+                      <span className="text-gray-600">Webpack + TypeScript</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="font-medium">Styling:</span>
+                      <span className="text-gray-600">Tailwind CSS + ShadCN UI</span>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader>
+                  <CardTitle>Support & Resources</CardTitle>
+                  <CardDescription>
+                    Get help and find resources
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-3">
+                    <div>
+                      <h4 className="font-medium mb-1">Documentation</h4>
+                      <p className="text-sm text-gray-600">Check the theme documentation for detailed guides</p>
+                    </div>
+                    <div>
+                      <h4 className="font-medium mb-1">GitHub Repository</h4>
+                      <p className="text-sm text-gray-600">View source code and submit issues</p>
+                    </div>
+                    <div>
+                      <h4 className="font-medium mb-1">Community</h4>
+                      <p className="text-sm text-gray-600">Join our community for support and updates</p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
           </TabsContent>
         </Tabs>
       </div>
+      <Toaster />
     </div>
   );
 };

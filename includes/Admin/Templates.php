@@ -41,7 +41,7 @@ class Templates {
             ),
             'public' => false,
             'show_ui' => true,
-            'show_in_menu' => 'get-shielded-settings',
+            'show_in_menu' => false,
             'show_in_rest' => true,
             'supports' => array('title', 'editor', 'custom-fields'),
             'capability_type' => 'page',
