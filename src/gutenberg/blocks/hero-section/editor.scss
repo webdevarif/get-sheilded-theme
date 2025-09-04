@@ -1,0 +1,20 @@
+/* Hero Section Block Editor Styles */
+.editor-styles-wrapper .gst-hero-section {
+  border: 2px dashed #ddd;
+  
+  &:hover {
+    border-color: #007cba;
+  }
+
+  .gst-hero-content {
+    .hero-title {
+      color: #1e1e1e;
+      text-shadow: none;
+    }
+
+    .hero-description {
+      color: #757575;
+      text-shadow: none;
+    }
+  }
+}

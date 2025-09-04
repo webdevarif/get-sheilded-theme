@@ -1,0 +1,15 @@
+@import '../../styles/globals.css';
+
+/* Admin-specific styles */
+.wp-admin #wpbody-content {
+  background: #f9fafb;
+}
+
+.wp-admin .wrap {
+  margin: 0;
+  padding: 0;
+}
+
+#gst-admin-app {
+  margin: -20px -20px -20px -2px;
+}

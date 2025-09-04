@@ -1,0 +1,146 @@
+// Responsive utilities and components
+
+// Breakpoints
+$mobile: 480px;
+$tablet: 768px;
+$desktop: 1024px;
+$wide: 1200px;
+
+// Responsive mixins
+@mixin mobile-only {
+  @media (max-width: #{$tablet - 1px}) {
+    @content;
+  }
+}
+
+@mixin tablet-up {
+  @media (min-width: #{$tablet}) {
+    @content;
+  }
+}
+
+@mixin desktop-up {
+  @media (min-width: #{$desktop}) {
+    @content;
+  }
+}
+
+@mixin wide-up {
+  @media (min-width: #{$wide}) {
+    @content;
+  }
+}
+
+// Responsive typography
+.responsive-text {
+  font-size: 1rem;
+
+  @include tablet-up {
+    font-size: 1.125rem;
+  }
+
+  @include desktop-up {
+    font-size: 1.25rem;
+  }
+}
+
+.responsive-heading {
+  font-size: 1.5rem;
+
+  @include tablet-up {
+    font-size: 2rem;
+  }
+
+  @include desktop-up {
+    font-size: 2.5rem;
+  }
+}
+
+// Responsive spacing
+.responsive-padding {
+  padding: 1rem;
+
+  @include tablet-up {
+    padding: 1.5rem;
+  }
+
+  @include desktop-up {
+    padding: 2rem;
+  }
+}
+
+.responsive-margin {
+  margin: 1rem 0;
+
+  @include tablet-up {
+    margin: 1.5rem 0;
+  }
+
+  @include desktop-up {
+    margin: 2rem 0;
+  }
+}
+
+// Mobile-first grid adjustments
+.grid-2 {
+  @include mobile-only {
+    grid-template-columns: 1fr;
+  }
+}
+
+.grid-3 {
+  @include mobile-only {
+    grid-template-columns: 1fr;
+  }
+
+  @include tablet-up {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @include desktop-up {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.grid-4 {
+  @include mobile-only {
+    grid-template-columns: 1fr;
+  }
+
+  @include tablet-up {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @include desktop-up {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+// Hide/show utilities
+.hide-mobile {
+  @include mobile-only {
+    display: none !important;
+  }
+}
+
+.hide-tablet {
+  @include tablet-up {
+    display: none !important;
+  }
+}
+
+.show-mobile-only {
+  display: block;
+
+  @include tablet-up {
+    display: none !important;
+  }
+}
+
+.show-tablet-up {
+  display: none;
+
+  @include tablet-up {
+    display: block !important;
+  }
+}

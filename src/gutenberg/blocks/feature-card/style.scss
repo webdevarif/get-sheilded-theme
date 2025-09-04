@@ -1,0 +1,72 @@
+/* Feature Card Block Styles - ShadCN UI inspired */
+.gst-feature-card {
+  @apply rounded-lg border bg-card text-card-foreground shadow-sm;
+  padding: 1.5rem;
+  transition: all 0.3s ease;
+
+  &:hover {
+    @apply shadow-md;
+    transform: translateY(-2px);
+  }
+
+  &__icon {
+    @apply mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-primary text-primary-foreground;
+
+    .lucide {
+      font-size: 1.5rem;
+    }
+  }
+
+  &__content {
+    flex: 1;
+  }
+
+  &__title {
+    @apply text-xl font-semibold leading-none tracking-tight mb-3;
+    margin: 0 0 0.75rem 0;
+  }
+
+  &__description {
+    @apply text-sm text-muted-foreground;
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  /* Card Style Variants */
+  &--outlined {
+    @apply border-2 bg-background;
+
+    .gst-feature-card__icon {
+      @apply bg-background border-2 border-primary text-primary;
+    }
+  }
+
+  &--filled {
+    @apply bg-primary text-primary-foreground border-primary;
+
+    .gst-feature-card__icon {
+      @apply bg-primary-foreground text-primary;
+    }
+
+    .gst-feature-card__description {
+      @apply text-primary-foreground/80;
+    }
+  }
+
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    padding: 1rem;
+
+    &__icon {
+      @apply h-10 w-10 mb-3;
+
+      .lucide {
+        font-size: 1.25rem;
+      }
+    }
+
+    &__title {
+      @apply text-lg mb-2;
+    }
+  }
+}

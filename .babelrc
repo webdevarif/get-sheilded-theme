@@ -1,0 +1,11 @@
+{
+  "presets": [
+    "@wordpress/babel-preset-default",
+    [
+      "@babel/preset-typescript",
+      {
+        "allowNamespaces": true
+      }
+    ]
+  ]
+}

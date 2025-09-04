@@ -1,0 +1,68 @@
+// Gutenberg Editor Styles
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import '../../styles/globals.css';
+
+// Import block editor styles
+@import '../blocks/hero-section/editor.scss';
+@import '../blocks/feature-card/editor.scss';
+
+// General editor enhancements
+.editor-styles-wrapper {
+  // Add better spacing for blocks in editor
+  .wp-block {
+    margin-bottom: 1.5rem;
+  }
+
+  // Style block appender
+  .block-list-appender {
+    margin: 1rem 0;
+  }
+
+  // Enhanced block controls
+  .block-editor-block-list__layout > .wp-block {
+    &:hover {
+      .block-editor-block-list__block-edit::before {
+        border-color: #007cba;
+      }
+    }
+  }
+
+  // Custom block styling
+  .gst-feature-card,
+  .gst-hero-section,
+  .gst-testimonial,
+  .gst-cta,
+  .gst-pricing-table {
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 1rem;
+    margin: 1rem 0;
+
+    &:hover {
+      border-color: #007cba;
+      box-shadow: 0 2px 8px rgba(0, 124, 186, 0.1);
+    }
+  }
+
+  // RichText editor improvements
+  .rich-text {
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 0 2px rgba(0, 124, 186, 0.2);
+      border-radius: 4px;
+    }
+  }
+
+  // Block placeholder styling
+  .components-placeholder {
+    border: 2px dashed #cbd5e0;
+    background: #f7fafc;
+
+    &:hover {
+      border-color: #007cba;
+    }
+  }
+}

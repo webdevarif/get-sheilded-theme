@@ -1,0 +1,79 @@
+// GSAP-based animations for frontend components
+
+// Initial states for GSAP animations
+.gsap-fade-in-up {
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.gsap-fade-in {
+  opacity: 0;
+}
+
+.gsap-slide-in-left {
+  opacity: 0;
+  transform: translateX(-30px);
+}
+
+.gsap-slide-in-right {
+  opacity: 0;
+  transform: translateX(30px);
+}
+
+.gsap-scale-in {
+  opacity: 0;
+  transform: scale(0.8);
+}
+
+.gsap-rotate-in {
+  opacity: 0;
+  transform: rotate(-10deg) scale(0.9);
+}
+
+// Scroll-triggered animations
+.gsap-scroll-trigger {
+  opacity: 0;
+  transform: translateY(50px);
+}
+
+// Hover states (GSAP will handle the animations)
+.gsap-hover-lift {
+  cursor: pointer;
+}
+
+.gsap-hover-scale {
+  cursor: pointer;
+}
+
+.gsap-hover-bounce {
+  cursor: pointer;
+}
+
+// Loading animations
+.gsap-loading {
+  opacity: 0;
+}
+
+// Stagger animation containers
+.gsap-stagger-container {
+  .gsap-stagger-item {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+}
+
+// Hero section specific animations
+.gsap-hero-title {
+  opacity: 0;
+  transform: translateY(50px) scale(0.9);
+}
+
+.gsap-hero-subtitle {
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.gsap-hero-button {
+  opacity: 0;
+  transform: translateY(20px) scale(0.9);
+}

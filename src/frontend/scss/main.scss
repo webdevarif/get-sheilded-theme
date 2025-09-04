@@ -1,0 +1,61 @@
+// Import Tailwind CSS
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+// Import ShadCN UI globals
+@import '../../styles/globals.css';
+
+// Frontend specific styles
+@import 'components/animations';
+@import 'components/layout';
+@import 'components/responsive';
+
+// Base styles
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  line-height: 1.6;
+  color: #333;
+}
+
+// Utility classes
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.mb-4 {
+  margin-bottom: 1rem;
+}
+
+.mb-8 {
+  margin-bottom: 2rem;
+}
+
+// Button enhancements
+.wp-block-button__link {
+  transition: all 0.3s ease;
+  
+  &:hover {
+    transform: translateY(-1px);
+  }
+}
+
+// WordPress specific fixes
+.wp-block-group {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.wp-block-cover {
+  margin-bottom: 0;
+}

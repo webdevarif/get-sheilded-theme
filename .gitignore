@@ -1,0 +1,128 @@
+# ===================================
+# Get Shielded Theme - .gitignore
+# ===================================
+
+# === Dependencies ===
+node_modules/
+vendor/
+bower_components/
+
+# === Build Outputs ===
+dist/
+build/
+*.min.js
+*.min.css
+*.map
+
+# === Environment Files ===
+.env
+.env.local
+.env.development
+.env.production
+.env.staging
+
+# === Package Manager Files ===
+package-lock.json
+yarn.lock
+composer.lock
+.pnpm-lock.yaml
+
+# === Logs ===
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+.npm/
+.yarn/
+
+# === Runtime Data ===
+pids/
+*.pid
+*.seed
+*.pid.lock
+lib-cov/
+coverage/
+nyc_output/
+
+# === Editor Directories and Files ===
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+*.swp
+*.swo
+*.vi
+*~
+.project
+.settings/
+
+# === OS Generated Files ===
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Desktop.ini
+
+# === WordPress Specific ===
+wp-config.php
+wp-config-local.php
+wp-content/uploads/
+wp-content/upgrade/
+wp-content/cache/
+wp-content/backup-db/
+wp-content/advanced-cache.php
+wp-content/wp-cache-config.php
+wp-content/blogs.dir/
+wp-content/debug.log
+sitemap.xml
+sitemap.xml.gz
+
+# === Theme Development ===
+# Keep dist/ if you want to commit compiled assets
+# dist/
+
+# Webpack cache
+.cache/
+.parcel-cache/
+
+# TypeScript cache
+*.tsbuildinfo
+
+# SASS cache
+.sass-cache/
+*.css.map
+*.scss.map
+
+# === Temporary Files ===
+*.tmp
+*.temp
+*.bak
+*.backup
+*.orig
+*.rej
+
+# === Security ===
+*.key
+*.pem
+*.p12
+*.pfx
+auth.json
+
+# === Testing ===
+.nyc_output/
+coverage/
+*.lcov
+
+# === Documentation ===
+# Uncomment if you don't want to commit docs
+# docs/
+
+# === Miscellaneous ===
+*.log
+*.lock
+.cache
+.temp
+.tmp

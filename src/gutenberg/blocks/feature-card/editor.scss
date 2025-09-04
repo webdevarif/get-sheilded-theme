@@ -1,0 +1,15 @@
+/* Feature Card Block Editor Styles */
+.editor-styles-wrapper .gst-feature-card {
+  border: 1px solid #e2e8f0;
+  
+  &:hover {
+    border-color: #007cba;
+  }
+
+  .rich-text {
+    &:focus {
+      outline: none;
+      box-shadow: none;
+    }
+  }
+}

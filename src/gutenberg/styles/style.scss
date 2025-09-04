@@ -1,0 +1,144 @@
+// Gutenberg Frontend Styles
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import '../../styles/globals.css';
+
+// Import all block styles
+@import '../blocks/hero-section/style.scss';
+@import '../blocks/feature-card/style.scss';
+
+// Testimonial block styles
+.gst-testimonial {
+  @apply bg-card rounded-lg p-6 border shadow-sm;
+  max-width: 600px;
+  margin: 2rem auto;
+
+  &__quote {
+    @apply text-lg italic mb-4;
+    position: relative;
+    
+    &::before {
+      content: '"';
+      @apply text-4xl text-primary absolute -top-2 -left-2;
+    }
+  }
+
+  &__author {
+    @apply flex flex-col sm:flex-row sm:items-center gap-2;
+    
+    cite {
+      @apply font-semibold text-foreground;
+      font-style: normal;
+    }
+    
+    span {
+      @apply text-sm text-muted-foreground;
+      
+      &::before {
+        content: '— ';
+      }
+    }
+  }
+}
+
+// Call to Action block styles
+.gst-cta {
+  @apply bg-primary text-primary-foreground rounded-lg p-8 text-center;
+  background: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--primary) / 0.8) 100%);
+
+  h2 {
+    @apply text-primary-foreground mb-4;
+  }
+
+  p {
+    @apply text-primary-foreground/90 mb-6;
+  }
+
+  .wp-block-button__link {
+    @apply bg-background text-foreground;
+    
+    &:hover {
+      @apply bg-background/90;
+      transform: translateY(-2px);
+    }
+  }
+}
+
+// Pricing Table block styles
+.gst-pricing-table {
+  @apply grid gap-6;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  margin: 2rem 0;
+
+  .gst-pricing-column {
+    @apply bg-card border rounded-lg p-6 text-center;
+    transition: all 0.3s ease;
+
+    &:hover {
+      @apply shadow-lg;
+      transform: translateY(-4px);
+    }
+
+    &.featured {
+      @apply border-primary bg-primary/5;
+      position: relative;
+
+      &::before {
+        content: 'Popular';
+        @apply absolute -top-3 left-1/2 transform -translate-x-1/2 bg-primary text-primary-foreground px-3 py-1 rounded-full text-sm font-medium;
+      }
+    }
+
+    .price {
+      @apply text-3xl font-bold text-primary mb-2;
+    }
+
+    .period {
+      @apply text-muted-foreground mb-6;
+    }
+
+    .features {
+      @apply list-none p-0 mb-6;
+
+      li {
+        @apply py-2 border-b border-border/30;
+        
+        &:last-child {
+          border-bottom: none;
+        }
+      }
+    }
+
+    .wp-block-button {
+      width: 100%;
+      
+      .wp-block-button__link {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+  }
+}
+
+// Responsive adjustments
+@media (max-width: 768px) {
+  .gst-hero-section {
+    .gst-hero-content {
+      padding: 1rem;
+      
+      .hero-title {
+        font-size: 2rem;
+      }
+    }
+  }
+
+  .gst-cta {
+    padding: 2rem 1rem;
+  }
+
+  .gst-pricing-table {
+    grid-template-columns: 1fr;
+  }
+}
