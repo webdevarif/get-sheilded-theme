@@ -2,7 +2,7 @@
 /**
  * The template for displaying all pages
  *
- * @package GetShieldedTheme
+ * @package GetsheildedTheme
  * @since 1.0.0
  */
 
@@ -27,7 +27,7 @@ get_header(); ?>
                     
                     <?php
                     wp_link_pages(array(
-                        'before' => '<div class="page-links">' . esc_html__('Pages:', 'get-shielded-theme'),
+                        'before' => '<div class="page-links">' . esc_html__('Pages:', 'get-sheilded-theme'),
                         'after'  => '</div>',
                     ));
                     ?>

@@ -1,7 +1,7 @@
 /**
  * Frontend Components JavaScript with GSAP
  * 
- * @package GetShieldedTheme
+ * @package GetsheildedTheme
  */
 
 import { GSAPAnimations } from '../../lib/gsap-animations';

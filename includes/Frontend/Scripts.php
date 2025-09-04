@@ -2,11 +2,11 @@
 /**
  * Frontend Scripts Handler
  * 
- * @package GetShieldedTheme\Frontend
+ * @package GetsheildedTheme\Frontend
  * @since 1.0.0
  */
 
-namespace GetShieldedTheme\Frontend;
+namespace GetsheildedTheme\Frontend;
 
 class Scripts {
     

@@ -2,7 +2,7 @@
 /**
  * Theme functions and definitions
  * 
- * @package GetShieldedTheme
+ * @package GetsheildedTheme
  * @since 1.0.0
  */
 
@@ -27,7 +27,7 @@ add_theme_support('custom-logo');
 
 // Autoloader for theme classes
 spl_autoload_register(function ($class) {
-    $prefix = 'GetShieldedTheme\\';
+    $prefix = 'GetsheildedTheme\\';
     $base_dir = GST_THEME_PATH . '/includes/';
     
     $len = strlen($prefix);
@@ -45,7 +45,7 @@ spl_autoload_register(function ($class) {
 
 // Initialize theme
 function gst_init_theme() {
-    new \GetShieldedTheme\Core\Theme();
+    new \GetsheildedTheme\Core\Theme();
 }
 add_action('after_setup_theme', 'gst_init_theme');
 

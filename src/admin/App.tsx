@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Settings, Blocks, Shield, Home } from 'lucide-react';
 import { Toaster } from 'sonner';
+import { SWRProvider } from '@/components/providers/SWRProvider';
 import SettingsPage from './Settings';
 
 const App: React.FC = () => {
@@ -29,17 +30,18 @@ const App: React.FC = () => {
   console.log('App component rendering, currentTab:', currentTab);
 
   return (
-    <div className="min-h-screen bg-gray-50 p-6">
-      <div className="max-w-7xl mx-auto">
-        <div className="mb-8">
-          <div className="flex items-center space-x-3 mb-4">
-            <Shield className="h-8 w-8 text-blue-600" />
-            <h1 className="text-3xl font-bold text-gray-900">Get Shielded Theme - Live! 🚀</h1>
+    <SWRProvider>
+      <div className="min-h-screen bg-gray-50 p-6">
+        <div className="max-w-7xl mx-auto">
+          <div className="mb-8">
+            <div className="flex items-center space-x-3 mb-4">
+              <Shield className="h-8 w-8 text-blue-600" />
+              <h1 className="text-3xl font-bold text-gray-900">Get sheilded Theme - Live! 🚀</h1>
+            </div>
+            <p className="text-gray-600">
+              Modern WordPress theme administration with React, GSAP, and ShadCN UI
+            </p>
           </div>
-          <p className="text-gray-600">
-            Modern WordPress theme administration with React, GSAP, and ShadCN UI
-          </p>
-        </div>
 
         <Tabs value={currentTab} onValueChange={handleTabChange} className="w-full">
           <TabsList className="grid w-full grid-cols-4">
@@ -296,9 +298,10 @@ const App: React.FC = () => {
             </div>
           </TabsContent>
         </Tabs>
+        </div>
+        <Toaster />
       </div>
-      <Toaster />
-    </div>
+    </SWRProvider>
   );
 };
 

@@ -1,5 +1,14 @@
 import { toast } from 'sonner';
 
+export interface Language {
+  name: string;
+  code: string;
+  flag: string;
+  country: string;
+  is_default: boolean;
+  active: boolean;
+}
+
 export interface ThemeSettings {
   colors: {
     primary: string;
@@ -36,6 +45,7 @@ export interface ThemeSettings {
     borderRadius: string;
     spacing: string;
   };
+  languages: Record<string, Language>;
 }
 
 export const defaultSettings: ThemeSettings = {
@@ -74,6 +84,7 @@ export const defaultSettings: ThemeSettings = {
     borderRadius: '0.5rem',
     spacing: '1rem',
   },
+  languages: {},
 };
 
 export const fontFamilies = [
@@ -217,7 +228,9 @@ class SettingsAPI {
 
   async saveSettings(settings: ThemeSettings): Promise<boolean> {
     try {
-      const requestBody = { settings };
+      // Remove languages from settings as they are handled by dedicated language API
+      const { languages, ...settingsWithoutLanguages } = settings;
+      const requestBody = { settings: settingsWithoutLanguages };
       console.log('Sending settings:', JSON.stringify(requestBody, null, 2));
       
       const response = await fetch(`${this.getApiUrl()}settings`, {

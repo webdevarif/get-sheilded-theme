@@ -2,7 +2,7 @@
 /**
  * The sidebar containing the main widget area
  *
- * @package GetShieldedTheme
+ * @package GetsheildedTheme
  * @since 1.0.0
  */
 

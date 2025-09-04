@@ -2,11 +2,11 @@
 /**
  * Templates Manager
  * 
- * @package GetShieldedTheme\Admin
+ * @package GetsheildedTheme\Admin
  * @since 1.0.0
  */
 
-namespace GetShieldedTheme\Admin;
+namespace GetsheildedTheme\Admin;
 
 class Templates {
     
@@ -28,16 +28,16 @@ class Templates {
     public function register_post_type() {
         register_post_type('gst_theme_templates', array(
             'labels' => array(
-                'name' => __('Templates', 'get-shielded-theme'),
-                'singular_name' => __('Template', 'get-shielded-theme'),
-                'add_new' => __('Add New Template', 'get-shielded-theme'),
-                'add_new_item' => __('Add New Template', 'get-shielded-theme'),
-                'edit_item' => __('Edit Template', 'get-shielded-theme'),
-                'new_item' => __('New Template', 'get-shielded-theme'),
-                'view_item' => __('View Template', 'get-shielded-theme'),
-                'search_items' => __('Search Templates', 'get-shielded-theme'),
-                'not_found' => __('No templates found', 'get-shielded-theme'),
-                'not_found_in_trash' => __('No templates found in trash', 'get-shielded-theme'),
+                'name' => __('Templates', 'get-sheilded-theme'),
+                'singular_name' => __('Template', 'get-sheilded-theme'),
+                'add_new' => __('Add New Template', 'get-sheilded-theme'),
+                'add_new_item' => __('Add New Template', 'get-sheilded-theme'),
+                'edit_item' => __('Edit Template', 'get-sheilded-theme'),
+                'new_item' => __('New Template', 'get-sheilded-theme'),
+                'view_item' => __('View Template', 'get-sheilded-theme'),
+                'search_items' => __('Search Templates', 'get-sheilded-theme'),
+                'not_found' => __('No templates found', 'get-sheilded-theme'),
+                'not_found_in_trash' => __('No templates found in trash', 'get-sheilded-theme'),
             ),
             'public' => false,
             'show_ui' => true,
@@ -204,7 +204,7 @@ class Templates {
         check_ajax_referer('wp_rest', 'nonce');
         
         if (!current_user_can('manage_options')) {
-            wp_die(__('Unauthorized', 'get-shielded-theme'));
+            wp_die(__('Unauthorized', 'get-sheilded-theme'));
         }
         
         $template_id = intval($_POST['template_id']);
@@ -218,7 +218,7 @@ class Templates {
             ));
         } else {
             wp_send_json_error(array(
-                'message' => __('Template not found', 'get-shielded-theme')
+                'message' => __('Template not found', 'get-sheilded-theme')
             ));
         }
     }
@@ -230,7 +230,7 @@ class Templates {
         check_ajax_referer('wp_rest', 'nonce');
         
         if (!current_user_can('manage_options')) {
-            wp_die(__('Unauthorized', 'get-shielded-theme'));
+            wp_die(__('Unauthorized', 'get-sheilded-theme'));
         }
         
         $template_id = intval($_POST['template_id']);
@@ -252,11 +252,11 @@ class Templates {
             update_post_meta($template_id, 'gst_template_type', $template_type);
             
             wp_send_json_success(array(
-                'message' => __('Template saved successfully', 'get-shielded-theme')
+                'message' => __('Template saved successfully', 'get-sheilded-theme')
             ));
         } else {
             wp_send_json_error(array(
-                'message' => __('Failed to save template', 'get-shielded-theme')
+                'message' => __('Failed to save template', 'get-sheilded-theme')
             ));
         }
     }

@@ -1,4 +1,4 @@
-# Get Shielded Theme
+# Get sheilded Theme
 
 A modern WordPress theme built with Object-Oriented Programming, React admin interface, and Gutenberg blocks using ShadCN UI components.
 
@@ -17,7 +17,7 @@ A modern WordPress theme built with Object-Oriented Programming, React admin int
 ## Directory Structure
 
 ```
-get-shielded-theme/
+get-sheilded-theme/
 ├── includes/                 # PHP Classes (OOP)
 │   ├── Core/                # Core theme functionality
 │   ├── Frontend/            # Frontend-specific classes
@@ -43,8 +43,8 @@ get-shielded-theme/
 1. **Clone or download** this theme to your WordPress themes directory:
    ```bash
    cd /path/to/wordpress/wp-content/themes/
-   git clone <repository-url> get-shielded-theme
-   cd get-shielded-theme
+   git clone <repository-url> get-sheilded-theme
+   cd get-sheilded-theme
    ```
 
 2. **Run the setup script**:
@@ -64,8 +64,8 @@ get-shielded-theme/
 1. **Clone the repository**:
    ```bash
    cd /path/to/wordpress/wp-content/themes/
-   git clone <repository-url> get-shielded-theme
-   cd get-shielded-theme
+   git clone <repository-url> get-sheilded-theme
+   cd get-sheilded-theme
    ```
 
 2. **Install dependencies** (if you encounter issues, use the alternative package.json):

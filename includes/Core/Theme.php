@@ -2,17 +2,17 @@
 /**
  * Main Theme Class
  * 
- * @package GetShieldedTheme\Core
+ * @package GetsheildedTheme\Core
  * @since 1.0.0
  */
 
-namespace GetShieldedTheme\Core;
+namespace GetsheildedTheme\Core;
 
-use GetShieldedTheme\Frontend\Scripts as FrontendScripts;
-use GetShieldedTheme\Admin\Scripts as AdminScripts;
-use GetShieldedTheme\Admin\Templates;
-use GetShieldedTheme\Admin\SettingsAPI;
-use GetShieldedTheme\Blocks\BlockRegistry;
+use GetsheildedTheme\Frontend\Scripts as FrontendScripts;
+use GetsheildedTheme\Admin\Scripts as AdminScripts;
+use GetsheildedTheme\Admin\Templates;
+use GetsheildedTheme\Admin\SettingsAPI;
+use GetsheildedTheme\Blocks\BlockRegistry;
 
 class Theme {
     
@@ -41,6 +41,15 @@ class Theme {
     public function __construct() {
         $this->init_hooks();
         $this->init_components();
+        $this->init_language();
+    }
+    
+    /**
+     * Initialize language system
+     */
+    private function init_language() {
+        // Load only the language manager
+        require_once GST_THEME_PATH . '/includes/Language/LanguageManager.php';
     }
     
     /**
@@ -88,12 +97,12 @@ class Theme {
         
         // Register navigation menus
         register_nav_menus(array(
-            'primary' => __('Primary Menu', 'get-shielded-theme'),
-            'footer' => __('Footer Menu', 'get-shielded-theme'),
+            'primary' => __('Primary Menu', 'get-sheilded-theme'),
+            'footer' => __('Footer Menu', 'get-sheilded-theme'),
         ));
         
         // Load text domain
-        load_theme_textdomain('get-shielded-theme', GST_THEME_PATH . '/languages');
+        load_theme_textdomain('get-sheilded-theme', GST_THEME_PATH . '/languages');
     }
     
     /**

@@ -1,13 +1,14 @@
 /**
  * Frontend Main JavaScript with GSAP
  * 
- * @package GetShieldedTheme
+ * @package GetsheildedTheme
  */
 
 import '../scss/main.scss';
 import { GSAPAnimations } from '../../lib/gsap-animations';
+import Header1Block from '../../gutenberg/blocks/header-1/frontend';
 
-class GetShieldedTheme {
+class GetsheildedTheme {
     constructor() {
         this.init();
     }
@@ -16,17 +17,12 @@ class GetShieldedTheme {
         this.bindEvents();
         this.initComponents();
         this.initGSAP();
-        console.log('Get Shielded Theme initialized with GSAP');
+        console.log('Get sheilded Theme initialized with GSAP');
     }
 
     initGSAP() {
         // Initialize GSAP animations
         GSAPAnimations.init();
-        
-        // Initialize hero entrance animation if hero section exists
-        if (document.querySelector('.gst-hero-section')) {
-            GSAPAnimations.heroEntrance();
-        }
     }
 
     bindEvents() {
@@ -111,13 +107,7 @@ class GetShieldedTheme {
 
     initAnimations() {
         // GSAP handles all animations now
-        // Add GSAP classes to hero elements
-        const heroElements = document.querySelectorAll('.gst-hero-section .gst-hero-content > *');
-        heroElements.forEach((el, index) => {
-            if (index === 0) el.classList.add('gsap-hero-title');
-            if (index === 1) el.classList.add('gsap-hero-subtitle');
-            if (index === 2) el.classList.add('gsap-hero-button');
-        });
+        // No specific animations needed for header
     }
 
     handleResize() {
@@ -165,7 +155,7 @@ class GetShieldedTheme {
 }
 
 // Initialize theme
-const gstTheme = new GetShieldedTheme();
+const gstTheme = new GetsheildedTheme();
 
 // Make it globally available
 window.gstTheme = gstTheme;

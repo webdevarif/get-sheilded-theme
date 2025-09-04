@@ -12,7 +12,7 @@ export const Help: React.FC = () => {
     },
     {
       question: "How do I add custom Gutenberg blocks?",
-      answer: "Custom blocks are automatically available in the Gutenberg editor. Look for the 'Get Shielded' category in the block inserter."
+      answer: "Custom blocks are automatically available in the Gutenberg editor. Look for the 'Get sheilded' category in the block inserter."
     },
     {
       question: "How do I create custom header/footer templates?",
@@ -61,7 +61,7 @@ export const Help: React.FC = () => {
         <CardHeader>
           <CardTitle>Frequently Asked Questions</CardTitle>
           <CardDescription>
-            Common questions and answers about the Get Shielded Theme
+            Common questions and answers about the Get sheilded Theme
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">

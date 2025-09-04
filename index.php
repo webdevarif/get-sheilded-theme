@@ -2,7 +2,7 @@
 /**
  * Main index template
  * 
- * @package GetShieldedTheme
+ * @package GetsheildedTheme
  * @since 1.0.0
  */
 
@@ -29,7 +29,7 @@ get_header(); ?>
                     <div class="entry-content">
                         <?php the_excerpt(); ?>
                         <a href="<?php the_permalink(); ?>" class="read-more">
-                            <?php esc_html_e('Read More', 'get-shielded-theme'); ?>
+                            <?php esc_html_e('Read More', 'get-sheilded-theme'); ?>
                         </a>
                     </div>
                 </article>
@@ -37,17 +37,17 @@ get_header(); ?>
 
             <?php
             the_posts_navigation(array(
-                'prev_text' => __('Older posts', 'get-shielded-theme'),
-                'next_text' => __('Newer posts', 'get-shielded-theme'),
+                'prev_text' => __('Older posts', 'get-sheilded-theme'),
+                'next_text' => __('Newer posts', 'get-sheilded-theme'),
             ));
             ?>
         <?php else : ?>
             <section class="no-results not-found">
                 <header class="page-header">
-                    <h1 class="page-title"><?php esc_html_e('Nothing here', 'get-shielded-theme'); ?></h1>
+                    <h1 class="page-title"><?php esc_html_e('Nothing here', 'get-sheilded-theme'); ?></h1>
                 </header>
                 <div class="page-content">
-                    <p><?php esc_html_e('It looks like nothing was found at this location.', 'get-shielded-theme'); ?></p>
+                    <p><?php esc_html_e('It looks like nothing was found at this location.', 'get-sheilded-theme'); ?></p>
                 </div>
             </section>
         <?php endif; ?>

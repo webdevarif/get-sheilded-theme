@@ -1,4 +1,4 @@
-// Get Shielded Theme - Templates Sidebar Panel
+// Get sheilded Theme - Templates Sidebar Panel
 import { registerPlugin } from "@wordpress/plugins";
 import { PluginDocumentSettingPanel } from '@wordpress/editor';
 import { __ } from "@wordpress/i18n";
@@ -66,7 +66,7 @@ const TemplatesSidebarPanel = () => {
     return (
         <PluginDocumentSettingPanel
             name="gst-templates-settings-panel"
-            title={__("Template Settings", "get-shielded-theme")}
+            title={__("Template Settings", "get-sheilded-theme")}
             className="gst-templates-settings-panel"
             initialOpen={true}
         >
@@ -79,16 +79,16 @@ const TemplatesSidebarPanel = () => {
                     textTransform: 'uppercase', 
                     color: '#1e1e1e' 
                 }}>
-                    {__("Template Type", "get-shielded-theme")}
+                    {__("Template Type", "get-sheilded-theme")}
                 </label>
                 <Select
-                    value={templateType ? { value: templateType, label: templateType === 'header' ? __('Header', 'get-shielded-theme') : __('Footer', 'get-shielded-theme') } : null}
+                    value={templateType ? { value: templateType, label: templateType === 'header' ? __('Header', 'get-sheilded-theme') : __('Footer', 'get-sheilded-theme') } : null}
                     onChange={(selectedOption) => updateMeta('gst_template_type', selectedOption ? selectedOption.value : '')}
                     options={[
-                        { value: 'header', label: __('Header', 'get-shielded-theme') },
-                        { value: 'footer', label: __('Footer', 'get-shielded-theme') }
+                        { value: 'header', label: __('Header', 'get-sheilded-theme') },
+                        { value: 'footer', label: __('Footer', 'get-sheilded-theme') }
                     ]}
-                    placeholder={__('Select Type', 'get-shielded-theme')}
+                    placeholder={__('Select Type', 'get-sheilded-theme')}
                     isClearable
                     styles={{
                         control: (provided, state) => ({
@@ -133,21 +133,21 @@ const TemplatesSidebarPanel = () => {
                     textTransform: 'uppercase', 
                     color: '#1e1e1e' 
                 }}>
-                    {__("Display On", "get-shielded-theme")}
+                    {__("Display On", "get-sheilded-theme")}
                 </label>
                 <Select
                     value={displayOption ? { 
                         value: displayOption, 
                         label: displayOption === 'entire_site' 
-                            ? __('Entire Site', 'get-shielded-theme') 
-                            : __('Specific Pages', 'get-shielded-theme') 
+                            ? __('Entire Site', 'get-sheilded-theme') 
+                            : __('Specific Pages', 'get-sheilded-theme') 
                     } : null}
                     onChange={(selectedOption) => updateMeta('gst_display_option', selectedOption ? selectedOption.value : '')}
                     options={[
-                        { value: 'entire_site', label: __('Entire Site', 'get-shielded-theme') },
-                        { value: 'specific_pages', label: __('Specific Pages', 'get-shielded-theme') }
+                        { value: 'entire_site', label: __('Entire Site', 'get-sheilded-theme') },
+                        { value: 'specific_pages', label: __('Specific Pages', 'get-sheilded-theme') }
                     ]}
-                    placeholder={__('Select Option', 'get-shielded-theme')}
+                    placeholder={__('Select Option', 'get-sheilded-theme')}
                     isClearable
                     styles={{
                         control: (provided, state) => ({
@@ -193,7 +193,7 @@ const TemplatesSidebarPanel = () => {
                         textTransform: 'uppercase', 
                         color: '#1e1e1e' 
                     }}>
-                        {__("Select Pages", "get-shielded-theme")}
+                        {__("Select Pages", "get-sheilded-theme")}
                     </label>
                     <Select
                         value={selectedPages}
@@ -206,7 +206,7 @@ const TemplatesSidebarPanel = () => {
                             value: page.id,
                             label: page.title.rendered
                         }))}
-                        placeholder={__('Choose pages...', 'get-shielded-theme')}
+                        placeholder={__('Choose pages...', 'get-sheilded-theme')}
                         isMulti
                         isClearable
                         isSearchable
@@ -257,7 +257,7 @@ const TemplatesSidebarPanel = () => {
                                 }
                             })
                         }}
-                        noOptionsMessage={() => __('No pages found', 'get-shielded-theme')}
+                        noOptionsMessage={() => __('No pages found', 'get-sheilded-theme')}
                     />
                 </div>
             )}
@@ -272,7 +272,7 @@ const TemplatesSidebarPanel = () => {
                         textTransform: 'uppercase', 
                         color: '#1e1e1e' 
                     }}>
-                        {__("Exclude Pages", "get-shielded-theme")}
+                        {__("Exclude Pages", "get-sheilded-theme")}
                     </label>
                     <Select
                         value={excludePages}
@@ -285,7 +285,7 @@ const TemplatesSidebarPanel = () => {
                             value: page.id,
                             label: page.title.rendered
                         }))}
-                        placeholder={__('Choose pages to exclude...', 'get-shielded-theme')}
+                        placeholder={__('Choose pages to exclude...', 'get-sheilded-theme')}
                         isMulti
                         isClearable
                         isSearchable
@@ -336,7 +336,7 @@ const TemplatesSidebarPanel = () => {
                                 }
                             })
                         }}
-                        noOptionsMessage={() => __('No pages found', 'get-shielded-theme')}
+                        noOptionsMessage={() => __('No pages found', 'get-sheilded-theme')}
                     />
                 </div>
             )}
@@ -351,7 +351,7 @@ const TemplatesSidebarPanel = () => {
                     textTransform: 'uppercase', 
                     color: '#1e1e1e' 
                 }}>
-                    {__("Priority", "get-shielded-theme")}
+                    {__("Priority", "get-sheilded-theme")}
                 </label>
                 <input
                     type="number"
@@ -384,14 +384,14 @@ const TemplatesSidebarPanel = () => {
                     margin: '4px 0 0 0',
                     fontStyle: 'italic'
                 }}>
-                    {__('Lower numbers = higher priority', 'get-shielded-theme')}
+                    {__('Lower numbers = higher priority', 'get-sheilded-theme')}
                 </p>
             </div>
             
             {templateType && displayOption && (
                 <Notice status="success" isDismissible={false}>
                     <p style={{ margin: 0, fontSize: '12px' }}>
-                        {__('Template configured successfully!', 'get-shielded-theme')}
+                        {__('Template configured successfully!', 'get-sheilded-theme')}
                     </p>
                 </Notice>
             )}
@@ -399,7 +399,7 @@ const TemplatesSidebarPanel = () => {
             {(!templateType || !displayOption) && (
                 <Notice status="warning" isDismissible={false}>
                     <p style={{ margin: 0, fontSize: '12px' }}>
-                        {__('Please configure template type and display options.', 'get-shielded-theme')}
+                        {__('Please configure template type and display options.', 'get-sheilded-theme')}
                     </p>
                 </Notice>
             )}

@@ -1,5 +1,6 @@
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import VanillaTilt from 'vanilla-tilt';
 
 // Register ScrollTrigger plugin
 gsap.registerPlugin(ScrollTrigger);
@@ -8,356 +9,192 @@ gsap.registerPlugin(ScrollTrigger);
  * GSAP Animation Utilities
  */
 export class GSAPAnimations {
-  private static tl: gsap.core.Timeline;
-
   /**
    * Initialize GSAP animations
    */
   static init(): void {
-    this.setupScrollTriggers();
-    this.setupHoverAnimations();
-    this.initPageLoad();
+    this.customAnimation();
+    this.imageAnimation();
   }
 
   /**
-   * Fade in up animation
+   * Function to initialize custom animations
    */
-  static fadeInUp(element: string | Element, options: gsap.TweenVars = {}): gsap.core.Tween {
-    return gsap.fromTo(
-      element,
-      {
-        opacity: 0,
-        y: 30,
-      },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 0.6,
-        ease: 'power2.out',
-        ...options,
+  static customAnimation(): void {
+    // Select all elements with the class 'gst-fade-animate'
+    const fadeContainers = document.querySelectorAll<HTMLElement>(".gst-fade-animate");
+
+    fadeContainers.forEach((container) => {
+      let fadeFrom = "bottom",
+          onScroll = 1,
+          duration = 1.15,
+          fadeOffset = 20,
+          delay = 0.15,
+          ease = "power2.out";
+
+      if (container.getAttribute("data-offset")) {
+        fadeOffset = parseInt(container.getAttribute("data-offset") || "50");
       }
-    );
-  }
-
-  /**
-   * Fade in animation
-   */
-  static fadeIn(element: string | Element, options: gsap.TweenVars = {}): gsap.core.Tween {
-    return gsap.fromTo(
-      element,
-      {
-        opacity: 0,
-      },
-      {
-        opacity: 1,
-        duration: 0.6,
-        ease: 'power2.out',
-        ...options,
+      if (container.getAttribute("data-duration")) {
+        duration = parseFloat(container.getAttribute("data-duration") || "1.15");
       }
-    );
-  }
-
-  /**
-   * Slide in from left
-   */
-  static slideInLeft(element: string | Element, options: gsap.TweenVars = {}): gsap.core.Tween {
-    return gsap.fromTo(
-      element,
-      {
-        opacity: 0,
-        x: -30,
-      },
-      {
-        opacity: 1,
-        x: 0,
-        duration: 0.6,
-        ease: 'power2.out',
-        ...options,
+      if (container.getAttribute("data-animate-from")) {
+        fadeFrom = container.getAttribute("data-animate-from") || "bottom";
       }
-    );
-  }
-
-  /**
-   * Slide in from right
-   */
-  static slideInRight(element: string | Element, options: gsap.TweenVars = {}): gsap.core.Tween {
-    return gsap.fromTo(
-      element,
-      {
-        opacity: 0,
-        x: 30,
-      },
-      {
-        opacity: 1,
-        x: 0,
-        duration: 0.6,
-        ease: 'power2.out',
-        ...options,
+      if (container.getAttribute("data-on-scroll")) {
+        onScroll = parseInt(container.getAttribute("data-on-scroll") || "1");
       }
-    );
-  }
-
-  /**
-   * Scale in animation
-   */
-  static scaleIn(element: string | Element, options: gsap.TweenVars = {}): gsap.core.Tween {
-    return gsap.fromTo(
-      element,
-      {
-        opacity: 0,
-        scale: 0.8,
-      },
-      {
-        opacity: 1,
-        scale: 1,
-        duration: 0.6,
-        ease: 'back.out(1.7)',
-        ...options,
+      if (container.getAttribute("data-delay")) {
+        delay = parseFloat(container.getAttribute("data-delay") || "0.15");
       }
-    );
-  }
-
-  /**
-   * Rotate in animation
-   */
-  static rotateIn(element: string | Element, options: gsap.TweenVars = {}): gsap.core.Tween {
-    return gsap.fromTo(
-      element,
-      {
-        opacity: 0,
-        rotation: -10,
-        scale: 0.9,
-      },
-      {
-        opacity: 1,
-        rotation: 0,
-        scale: 1,
-        duration: 0.8,
-        ease: 'back.out(1.7)',
-        ...options,
+      if (container.getAttribute("data-ease")) {
+        ease = container.getAttribute("data-ease") || "power2.out";
       }
-    );
-  }
 
-  /**
-   * Stagger animation for multiple elements
-   */
-  static staggerIn(elements: string | Element[], options: gsap.TweenVars = {}): gsap.core.Timeline {
-    const tl = gsap.timeline();
+      // Define animation properties with explicit types
+      const animationProps: Record<string, unknown> = { // Changed from 'any' to 'unknown' for better type checking
+        opacity: 0,
+        ease: ease,
+        duration: duration,
+        delay: delay
+      };
+
+      // Modify animation direction based on fadeFrom attribute
+      switch (fadeFrom) {
+        case "top":
+          animationProps.y = -fadeOffset;
+          break;
+        case "left":
+          animationProps.x = -fadeOffset;
+          break;
+        case "bottom":
+          animationProps.y = fadeOffset;
+          break;
+        case "right":
+          animationProps.x = fadeOffset;
+          break;
+      }
+
+      // Add scroll trigger if specified
+      if (onScroll === 1) {
+        animationProps.scrollTrigger = {
+          trigger: container,
+          start: "top 85%"
+        };
+      }
+
+      // Apply GSAP animation from defined properties
+      gsap.from(container, animationProps);
+    });
+
+    const btnCursors = document.querySelectorAll('.gst-btn-cursor');
+
+    btnCursors.forEach(btn => {
+      // Cast to HTMLElement to ensure `.style` is accessible
+      const htmlBtn = btn as HTMLElement;
     
-    tl.fromTo(
-      elements,
-      {
-        opacity: 0,
-        y: 20,
-      },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 0.6,
-        ease: 'power2.out',
-        stagger: 0.1,
-        ...options,
-      }
-    );
-
-    return tl;
+      htmlBtn.addEventListener("mousemove", event => {
+        // Calculate the mouse position relative to the top-left corner of the button
+        const rect = htmlBtn.getBoundingClientRect();
+        const posX = event.clientX - rect.left;
+        const posY = event.clientY - rect.top;
+        
+        // Update CSS custom properties --x and --y on the HTML element
+        htmlBtn.style.setProperty('--x', `${posX}px`);
+        htmlBtn.style.setProperty('--y', `${posY}px`);
+      });
+    });
   }
 
   /**
-   * Hero section entrance animation
+   * Function to initialize image animation
    */
-  static heroEntrance(): gsap.core.Timeline {
-    const tl = gsap.timeline();
+  static imageAnimation(): void {
+    // Reveal animation for .gst-reveal containers
+    const revealContainers = document.querySelectorAll<HTMLElement>(".gst-reveal");
+    revealContainers.forEach((container) => {
+      const image = container.querySelector("img");
+      if (!image) return;
 
-    tl.fromTo(
-      '.gsap-hero-title',
-      {
-        opacity: 0,
-        y: 50,
-        scale: 0.9,
-      },
-      {
-        opacity: 1,
-        y: 0,
-        scale: 1,
-        duration: 1,
-        ease: 'power3.out',
-      }
-    )
-      .fromTo(
-        '.gsap-hero-subtitle',
-        {
-          opacity: 0,
-          y: 30,
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: container,
+          toggleActions: "play none none none",
         },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.8,
-          ease: 'power2.out',
-        },
-        '-=0.5'
-      )
-      .fromTo(
-        '.gsap-hero-button',
-        {
-          opacity: 0,
-          y: 20,
-          scale: 0.9,
-        },
-        {
-          opacity: 1,
-          y: 0,
-          scale: 1,
-          duration: 0.6,
-          ease: 'back.out(1.7)',
-        },
-        '-=0.3'
-      );
+      });
 
-    return tl;
-  }
+      tl.set(container, { autoAlpha: 1 });
+      tl.from(container, 1.5, { xPercent: -100, ease: "Power2.out" });
+      tl.from(image, 1.5, { xPercent: 100, scale: 1.3, delay: -1.5, ease: "Power2.out" });
+    });
 
-  /**
-   * Setup scroll-triggered animations
-   */
-  private static setupScrollTriggers(): void {
-    // Animate elements on scroll
-    gsap.utils.toArray('.gsap-scroll-trigger').forEach((element: any) => {
+    // Inview animation for .gst-inview containers
+    const inviewContainers = document.querySelectorAll<HTMLElement>(".gst-inview");
+    inviewContainers.forEach((container) => {
+      const element = container.querySelector(".gst-inview-wrapper");
+      const delayAttr = container.getAttribute("delay") || "0"; // Fallback to "0" if delay is null
+
+      if (!element) return;
+
       gsap.fromTo(
         element,
+        { scale: 1.2 },
         {
-          opacity: 0,
-          y: 50,
-        },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.8,
-          ease: 'power2.out',
-          scrollTrigger: {
-            trigger: element,
-            start: 'top 80%',
-            end: 'bottom 20%',
-            toggleActions: 'play none none reverse',
-          },
-        }
-      );
-    });
-
-    // Stagger animations for containers
-    gsap.utils.toArray('.gsap-stagger-container').forEach((container: any) => {
-      const items = container.querySelectorAll('.gsap-stagger-item');
-      
-      gsap.fromTo(
-        items,
-        {
-          opacity: 0,
-          y: 20,
-        },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.6,
-          ease: 'power2.out',
-          stagger: 0.1,
+          scale: 1,
+          duration: 2,
+          delay: parseFloat(delayAttr), // Parse the delay attribute
+          ease: "power2.out",
           scrollTrigger: {
             trigger: container,
-            start: 'top 80%',
-            end: 'bottom 20%',
-            toggleActions: 'play none none reverse',
+            start: "top bottom",
+          },
+          onStart: () => {
+            container.classList.add("animate");
           },
         }
       );
     });
-  }
 
-  /**
-   * Setup hover animations
-   */
-  private static setupHoverAnimations(): void {
-    // Hover lift effect
-    gsap.utils.toArray('.gsap-hover-lift').forEach((element: any) => {
-      element.addEventListener('mouseenter', () => {
-        gsap.to(element, {
-          y: -4,
-          boxShadow: '0 10px 25px rgba(0, 0, 0, 0.15)',
-          duration: 0.3,
-          ease: 'power2.out',
-        });
-      });
-
-      element.addEventListener('mouseleave', () => {
-        gsap.to(element, {
-          y: 0,
-          boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
-          duration: 0.3,
-          ease: 'power2.out',
-        });
+    // Vivacity animation for .gst-vivacity containers
+    const vivacityContainers = document.querySelectorAll<HTMLElement>(".gst-vivacity");
+    vivacityContainers.forEach((container) => {
+      const max = container.getAttribute("data-max") || "5"; // Fallback to "0" if delay is null
+      const speed = container.getAttribute("data-speed") || "2800"; // Fallback to "0" if delay is null
+      const perspective = container.getAttribute("data-perspective") || "500"; // Fallback to "0" if delay is null
+      VanillaTilt.init(container, {
+        max: parseInt(max),
+        speed: parseInt(speed),
+        perspective: parseInt(perspective),
       });
     });
 
-    // Hover scale effect
-    gsap.utils.toArray('.gsap-hover-scale').forEach((element: any) => {
-      element.addEventListener('mouseenter', () => {
-        gsap.to(element, {
-          scale: 1.05,
-          duration: 0.3,
-          ease: 'power2.out',
-        });
+    // Parallax effect for .gst-parallax-anim and .gst-parallax-self containers
+    const parallaxContainers = document.querySelectorAll<HTMLElement>(
+      ".gst-parallax-anim, .gst-parallax-self"
+    );
+
+    parallaxContainers.forEach((container) => {
+      const image = container.querySelector("img") || container; // Use the container itself if no image is found
+      if (!image) return;
+
+      // Get the yPercent value from the data-ypercent attribute (default to 30 if not provided)
+      const yPercentFrom = container.getAttribute("data-from") || "-30"; // Fallback to "30" if data-ypercent is null
+      const yPercentTo = container.getAttribute("data-to") || "30"; // Fallback to "30" if data-ypercent is null
+
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: container,
+          scrub: 0.5,
+        },
       });
 
-      element.addEventListener('mouseleave', () => {
-        gsap.to(element, {
-          scale: 1,
-          duration: 0.3,
-          ease: 'power2.out',
-        });
+      tl.from(image, {
+        yPercent: parseFloat(yPercentFrom), // Use the custom or default yPercent value
+        ease: "none",
+      }).to(image, {
+        yPercent: parseFloat(yPercentTo), // Use the custom or default yPercent value
+        ease: "none",
       });
-    });
-
-    // Hover bounce effect
-    gsap.utils.toArray('.gsap-hover-bounce').forEach((element: any) => {
-      element.addEventListener('mouseenter', () => {
-        gsap.to(element, {
-          y: -2,
-          duration: 0.2,
-          ease: 'power2.out',
-          yoyo: true,
-          repeat: 1,
-        });
-      });
-    });
-  }
-
-  /**
-   * Page load animations
-   */
-  private static initPageLoad(): void {
-    // Animate elements with specific classes
-    gsap.utils.toArray('.gsap-fade-in-up').forEach((element: any) => {
-      this.fadeInUp(element);
-    });
-
-    gsap.utils.toArray('.gsap-fade-in').forEach((element: any) => {
-      this.fadeIn(element);
-    });
-
-    gsap.utils.toArray('.gsap-slide-in-left').forEach((element: any) => {
-      this.slideInLeft(element);
-    });
-
-    gsap.utils.toArray('.gsap-slide-in-right').forEach((element: any) => {
-      this.slideInRight(element);
-    });
-
-    gsap.utils.toArray('.gsap-scale-in').forEach((element: any) => {
-      this.scaleIn(element);
-    });
-
-    gsap.utils.toArray('.gsap-rotate-in').forEach((element: any) => {
-      this.rotateIn(element);
     });
   }
 
@@ -378,13 +215,4 @@ export class GSAPAnimations {
 }
 
 // Export individual functions for convenience
-export const {
-  fadeInUp,
-  fadeIn,
-  slideInLeft,
-  slideInRight,
-  scaleIn,
-  rotateIn,
-  staggerIn,
-  heroEntrance,
-} = GSAPAnimations;
+export const { customAnimation, imageAnimation } = GSAPAnimations;

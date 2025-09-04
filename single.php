@@ -2,7 +2,7 @@
 /**
  * The template for displaying all single posts
  *
- * @package GetShieldedTheme
+ * @package GetsheildedTheme
  * @since 1.0.0
  */
 
@@ -26,7 +26,7 @@ get_header(); ?>
                             <?php echo esc_html(get_the_date()); ?>
                         </span>
                         <span class="byline">
-                            <?php esc_html_e('by', 'get-shielded-theme'); ?> 
+                            <?php esc_html_e('by', 'get-sheilded-theme'); ?> 
                             <?php the_author(); ?>
                         </span>
                         <?php if (has_category()) : ?>
@@ -42,7 +42,7 @@ get_header(); ?>
                     
                     <?php
                     wp_link_pages(array(
-                        'before' => '<div class="page-links">' . esc_html__('Pages:', 'get-shielded-theme'),
+                        'before' => '<div class="page-links">' . esc_html__('Pages:', 'get-sheilded-theme'),
                         'after'  => '</div>',
                     ));
                     ?>
@@ -51,7 +51,7 @@ get_header(); ?>
                 <footer class="entry-footer">
                     <?php if (has_tag()) : ?>
                         <div class="tag-list">
-                            <strong><?php esc_html_e('Tags:', 'get-shielded-theme'); ?></strong>
+                            <strong><?php esc_html_e('Tags:', 'get-sheilded-theme'); ?></strong>
                             <?php the_tags('', ', ', ''); ?>
                         </div>
                     <?php endif; ?>
@@ -61,8 +61,8 @@ get_header(); ?>
             <?php
             // Post navigation
             the_post_navigation(array(
-                'prev_text' => '<span class="nav-subtitle">' . esc_html__('Previous:', 'get-shielded-theme') . '</span> <span class="nav-title">%title</span>',
-                'next_text' => '<span class="nav-subtitle">' . esc_html__('Next:', 'get-shielded-theme') . '</span> <span class="nav-title">%title</span>',
+                'prev_text' => '<span class="nav-subtitle">' . esc_html__('Previous:', 'get-sheilded-theme') . '</span> <span class="nav-title">%title</span>',
+                'next_text' => '<span class="nav-subtitle">' . esc_html__('Next:', 'get-sheilded-theme') . '</span> <span class="nav-title">%title</span>',
             ));
 
             // Comments

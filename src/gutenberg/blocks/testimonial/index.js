@@ -3,9 +3,9 @@ import { __ } from '@wordpress/i18n';
 import { RichText, useBlockProps } from '@wordpress/block-editor';
 
 registerBlockType('gst/testimonial', {
-  title: __('Testimonial', 'get-shielded-theme'),
-  description: __('A testimonial block with quote, author, and company', 'get-shielded-theme'),
-  category: 'get-shielded',
+  title: __('Testimonial', 'get-sheilded-theme'),
+  description: __('A testimonial block with quote, author, and company', 'get-sheilded-theme'),
+  category: 'get-sheilded',
   icon: 'format-quote',
   attributes: {
     quote: {
@@ -32,7 +32,7 @@ registerBlockType('gst/testimonial', {
           <RichText
             value={quote}
             onChange={(value) => setAttributes({ quote: value })}
-            placeholder={__('Testimonial quote...', 'get-shielded-theme')}
+            placeholder={__('Testimonial quote...', 'get-sheilded-theme')}
           />
         </blockquote>
         <div className="gst-testimonial__author">
@@ -40,13 +40,13 @@ registerBlockType('gst/testimonial', {
             tagName="cite"
             value={author}
             onChange={(value) => setAttributes({ author: value })}
-            placeholder={__('Author name...', 'get-shielded-theme')}
+            placeholder={__('Author name...', 'get-sheilded-theme')}
           />
           <RichText
             tagName="span"
             value={company}
             onChange={(value) => setAttributes({ company: value })}
-            placeholder={__('Company name...', 'get-shielded-theme')}
+            placeholder={__('Company name...', 'get-sheilded-theme')}
           />
         </div>
       </div>

@@ -6,6 +6,7 @@ module.exports = {
   entry: {
     blocks: './src/gutenberg/index.js',
     templates: './src/gutenberg/templates.js',
+    'language-sidebar': './src/gutenberg/language-sidebar.js',
   },
   output: {
     path: path.resolve(__dirname, 'dist/gutenberg'),

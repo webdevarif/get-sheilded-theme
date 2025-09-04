@@ -2,11 +2,11 @@
 /**
  * Admin Scripts Handler
  * 
- * @package GetShieldedTheme\Admin
+ * @package GetsheildedTheme\Admin
  * @since 1.0.0
  */
 
-namespace GetShieldedTheme\Admin;
+namespace GetsheildedTheme\Admin;
 
 class Scripts {
     
@@ -27,12 +27,12 @@ class Scripts {
         error_log('GST: Admin script hook called: ' . $hook);
         
         // Only load on our admin pages
-        if (strpos($hook, 'get-shielded') === false) {
-            error_log('GST: Hook does not contain get-shielded, skipping');
+        if (strpos($hook, 'get-sheilded') === false) {
+            error_log('GST: Hook does not contain get-sheilded, skipping');
             return;
         }
         
-        error_log('GST: Hook contains get-shielded, loading scripts');
+        error_log('GST: Hook contains get-sheilded, loading scripts');
         
         $css_url = GST_THEME_URL . '/dist/admin/index.css';
         $js_url = GST_THEME_URL . '/dist/admin/index.js';
@@ -76,10 +76,10 @@ class Scripts {
     public function add_admin_menu() {
         // Main theme settings page - directly shows the React app
         add_menu_page(
-            __('Get Shielded Theme', 'get-shielded-theme'),
-            __('Get Shielded', 'get-shielded-theme'),
+            __('Get sheilded Theme', 'get-sheilded-theme'),
+            __('Get sheilded', 'get-sheilded-theme'),
             'manage_options',
-            'get-shielded-settings',
+            'get-sheilded-settings',
             array($this, 'render_admin_page'),
             'dashicons-shield',
             30
@@ -87,37 +87,37 @@ class Scripts {
         
         // Sub-menu pages
         add_submenu_page(
-            'get-shielded-settings',
-            __('Welcome', 'get-shielded-theme'),
-            __('Welcome', 'get-shielded-theme'),
+            'get-sheilded-settings',
+            __('Welcome', 'get-sheilded-theme'),
+            __('Welcome', 'get-sheilded-theme'),
             'manage_options',
-            'get-shielded-settings',
+            'get-sheilded-settings',
             array($this, 'render_admin_page')
         );
         
         add_submenu_page(
-            'get-shielded-settings',
-            __('Theme Settings', 'get-shielded-theme'),
-            __('Theme', 'get-shielded-theme'),
+            'get-sheilded-settings',
+            __('Theme Settings', 'get-sheilded-theme'),
+            __('Theme', 'get-sheilded-theme'),
             'manage_options',
-            'get-shielded-theme',
+            'get-sheilded-theme',
             array($this, 'render_theme_redirect')
         );
         
         add_submenu_page(
-            'get-shielded-settings',
-            __('Block Manager', 'get-shielded-theme'),
-            __('Blocks', 'get-shielded-theme'),
+            'get-sheilded-settings',
+            __('Block Manager', 'get-sheilded-theme'),
+            __('Blocks', 'get-sheilded-theme'),
             'manage_options',
-            'get-shielded-blocks',
+            'get-sheilded-blocks',
             array($this, 'render_blocks_redirect')
         );
         
         // Add Templates submenu manually at the end
         add_submenu_page(
-            'get-shielded-settings',
-            __('Templates', 'get-shielded-theme'),
-            __('Templates', 'get-shielded-theme'),
+            'get-sheilded-settings',
+            __('Templates', 'get-sheilded-theme'),
+            __('Templates', 'get-sheilded-theme'),
             'manage_options',
             'edit.php?post_type=gst_theme_templates',
             null
@@ -143,7 +143,7 @@ class Scripts {
         ?>
         <script>
             // Redirect to main page with theme tab
-            window.location.href = '<?php echo admin_url('admin.php?page=get-shielded-settings&tab=theme'); ?>';
+            window.location.href = '<?php echo admin_url('admin.php?page=get-sheilded-settings&tab=theme'); ?>';
         </script>
         <div class="wrap">
             <p>Redirecting to theme settings...</p>
@@ -158,7 +158,7 @@ class Scripts {
         ?>
         <script>
             // Redirect to main page with blocks tab
-            window.location.href = '<?php echo admin_url('admin.php?page=get-shielded-settings&tab=blocks'); ?>';
+            window.location.href = '<?php echo admin_url('admin.php?page=get-sheilded-settings&tab=blocks'); ?>';
         </script>
         <div class="wrap">
             <p>Redirecting to blocks...</p>

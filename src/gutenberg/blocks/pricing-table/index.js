@@ -3,9 +3,9 @@ import { __ } from '@wordpress/i18n';
 import { InnerBlocks, useBlockProps } from '@wordpress/block-editor';
 
 registerBlockType('gst/pricing-table', {
-  title: __('Pricing Table', 'get-shielded-theme'),
-  description: __('A pricing table with multiple columns', 'get-shielded-theme'),
-  category: 'get-shielded',
+  title: __('Pricing Table', 'get-sheilded-theme'),
+  description: __('A pricing table with multiple columns', 'get-sheilded-theme'),
+  category: 'get-sheilded',
   icon: 'money-alt',
   supports: {
     align: ['wide', 'full'],

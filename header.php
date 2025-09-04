@@ -2,10 +2,10 @@
 /**
  * The header for our theme
  *
- * @package GetShieldedTheme
+ * @package GetsheildedTheme
  */
 
-use GetShieldedTheme\Admin\Templates;
+use GetsheildedTheme\Admin\Templates;
 ?>
 <!DOCTYPE html>
 <html <?php language_attributes(); ?>>
@@ -66,10 +66,10 @@ use GetShieldedTheme\Admin\Templates;
                                     }
                                 } else {
                                     // Default menu items if no menu is set
-                                    echo '<a href="' . esc_url(home_url('/')) . '" class="text-white no-underline px-4 py-2 rounded-md transition-all duration-300 font-medium hover:bg-white/20">' . __('Home', 'get-shielded-theme') . '</a>';
-                                    echo '<a href="#" class="text-white no-underline px-4 py-2 rounded-md transition-all duration-300 font-medium hover:bg-white/20">' . __('About', 'get-shielded-theme') . '</a>';
-                                    echo '<a href="#" class="text-white no-underline px-4 py-2 rounded-md transition-all duration-300 font-medium hover:bg-white/20">' . __('Services', 'get-shielded-theme') . '</a>';
-                                    echo '<a href="#" class="text-white no-underline px-4 py-2 rounded-md transition-all duration-300 font-medium hover:bg-white/20">' . __('Contact', 'get-shielded-theme') . '</a>';
+                                    echo '<a href="' . esc_url(home_url('/')) . '" class="text-white no-underline px-4 py-2 rounded-md transition-all duration-300 font-medium hover:bg-white/20">' . __('Home', 'get-sheilded-theme') . '</a>';
+                                    echo '<a href="#" class="text-white no-underline px-4 py-2 rounded-md transition-all duration-300 font-medium hover:bg-white/20">' . __('About', 'get-sheilded-theme') . '</a>';
+                                    echo '<a href="#" class="text-white no-underline px-4 py-2 rounded-md transition-all duration-300 font-medium hover:bg-white/20">' . __('Services', 'get-sheilded-theme') . '</a>';
+                                    echo '<a href="#" class="text-white no-underline px-4 py-2 rounded-md transition-all duration-300 font-medium hover:bg-white/20">' . __('Contact', 'get-sheilded-theme') . '</a>';
                                 }
                                 ?>
                             </div>
@@ -78,7 +78,7 @@ use GetShieldedTheme\Admin\Templates;
                                     aria-controls="primary-menu" 
                                     aria-expanded="false"
                                     onclick="toggleMobileMenu()">
-                                <span class="sr-only"><?php esc_html_e('Toggle navigation', 'get-shielded-theme'); ?></span>
+                                <span class="sr-only"><?php esc_html_e('Toggle navigation', 'get-sheilded-theme'); ?></span>
                                 ☰
                             </button>
                         </div>
@@ -95,10 +95,10 @@ use GetShieldedTheme\Admin\Templates;
                                     echo '<a href="' . esc_url($item->url) . '" class="text-white no-underline p-4 rounded-md transition-all duration-300 font-medium hover:bg-white/20">' . esc_html($item->title) . '</a>';
                                 }
                             } else {
-                                echo '<a href="' . esc_url(home_url('/')) . '" class="text-white no-underline p-4 rounded-md transition-all duration-300 font-medium hover:bg-white/20">' . __('Home', 'get-shielded-theme') . '</a>';
-                                echo '<a href="#" class="text-white no-underline p-4 rounded-md transition-all duration-300 font-medium hover:bg-white/20">' . __('About', 'get-shielded-theme') . '</a>';
-                                echo '<a href="#" class="text-white no-underline p-4 rounded-md transition-all duration-300 font-medium hover:bg-white/20">' . __('Services', 'get-shielded-theme') . '</a>';
-                                echo '<a href="#" class="text-white no-underline p-4 rounded-md transition-all duration-300 font-medium hover:bg-white/20">' . __('Contact', 'get-shielded-theme') . '</a>';
+                                echo '<a href="' . esc_url(home_url('/')) . '" class="text-white no-underline p-4 rounded-md transition-all duration-300 font-medium hover:bg-white/20">' . __('Home', 'get-sheilded-theme') . '</a>';
+                                echo '<a href="#" class="text-white no-underline p-4 rounded-md transition-all duration-300 font-medium hover:bg-white/20">' . __('About', 'get-sheilded-theme') . '</a>';
+                                echo '<a href="#" class="text-white no-underline p-4 rounded-md transition-all duration-300 font-medium hover:bg-white/20">' . __('Services', 'get-sheilded-theme') . '</a>';
+                                echo '<a href="#" class="text-white no-underline p-4 rounded-md transition-all duration-300 font-medium hover:bg-white/20">' . __('Contact', 'get-sheilded-theme') . '</a>';
                             }
                             ?>
                         </div>

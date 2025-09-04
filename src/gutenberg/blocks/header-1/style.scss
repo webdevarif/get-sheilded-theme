@@ -1,0 +1,324 @@
+// Header 1 Block - Frontend Styles
+.gst-header-1 {
+  position: relative;
+  width: 100%;
+  z-index: 1000;
+
+  .gst-header-top {
+    background-color: #000000;
+    padding: 4px 0;
+    font-size: 12px;
+    color: #9ca3af;
+    text-align: left;
+    padding-left: 20px;
+
+    .gst-breadcrumb {
+      font-weight: 400;
+      letter-spacing: 0.5px;
+    }
+  }
+
+  .gst-header-main {
+    background-color: #1a4d3a;
+    position: relative;
+    width: 100%;
+
+    .gst-header-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+      height: 70px;
+      max-width: 1200px;
+      margin: 0 auto;
+
+      .gst-logo-section {
+        flex: 0 0 auto;
+
+        .gst-logo {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+
+          .gst-logo-icon {
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+
+          .gst-logo-text {
+            color: #ffffff;
+            font-weight: 700;
+            font-size: 18px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+          }
+        }
+      }
+
+      .gst-nav-desktop {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+
+        .gst-nav-list {
+          display: flex;
+          list-style: none;
+          margin: 0;
+          padding: 0;
+          gap: 32px;
+
+          .gst-nav-item {
+            position: relative;
+
+            a {
+              color: #ffffff;
+              text-decoration: none;
+              font-weight: 500;
+              font-size: 16px;
+              transition: color 0.3s ease;
+              display: flex;
+              align-items: center;
+              gap: 4px;
+
+              &:hover {
+                color: #84cc16;
+              }
+            }
+
+            &.active a {
+              color: #84cc16;
+            }
+
+            .gst-dropdown-arrow {
+              font-size: 10px;
+              color: #ffffff;
+              transition: transform 0.3s ease;
+            }
+
+            &:hover .gst-dropdown-arrow {
+              transform: rotate(180deg);
+            }
+          }
+        }
+      }
+
+      .gst-cta-section {
+        flex: 0 0 auto;
+
+        .gst-cta-button {
+          background-color: #84cc16;
+          color: #1a4d3a;
+          padding: 12px 24px;
+          border-radius: 8px;
+          text-decoration: none;
+          font-weight: 600;
+          font-size: 14px;
+          transition: all 0.3s ease;
+          display: inline-block;
+          border: none;
+          cursor: pointer;
+
+          &:hover {
+            background-color: #65a30d;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(132, 204, 22, 0.3);
+          }
+        }
+      }
+
+      .gst-mobile-menu-toggle {
+        display: none;
+        flex-direction: column;
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 8px;
+        gap: 4px;
+
+        span {
+          width: 24px;
+          height: 3px;
+          background-color: #ffffff;
+          border-radius: 2px;
+          transition: all 0.3s ease;
+        }
+
+        &:hover span {
+          background-color: #84cc16;
+        }
+      }
+    }
+
+    .gst-mobile-menu {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background-color: #ffffff;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      z-index: 1001;
+
+      .gst-mobile-menu-header {
+        background-color: #1a4d3a;
+        padding: 16px 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .gst-mobile-logo {
+          .gst-logo-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+        }
+
+        .gst-mobile-menu-close {
+          background: none;
+          border: none;
+          color: #ffffff;
+          font-size: 20px;
+          cursor: pointer;
+          padding: 4px;
+          line-height: 1;
+
+          &:hover {
+            color: #84cc16;
+          }
+        }
+      }
+
+      .gst-mobile-nav {
+        padding: 20px 0;
+
+        .gst-mobile-nav-list {
+          list-style: none;
+          margin: 0;
+          padding: 0;
+
+          .gst-mobile-nav-item {
+            border-bottom: 1px solid #f3f4f6;
+
+            &:last-child {
+              border-bottom: none;
+            }
+
+            a {
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+              padding: 16px 20px;
+              color: #374151;
+              text-decoration: none;
+              font-weight: 500;
+              font-size: 16px;
+              transition: all 0.3s ease;
+
+              &:hover {
+                background-color: #f9fafb;
+                color: #1a4d3a;
+              }
+            }
+
+            &.active a {
+              color: #1a4d3a;
+              background-color: #f0fdf4;
+            }
+
+            .gst-mobile-dropdown-arrow {
+              font-size: 12px;
+              color: #6b7280;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .gst-header-divider {
+    height: 1px;
+    background-color: #ffffff;
+    width: 100%;
+  }
+
+  // Mobile Responsive Styles
+  @media (max-width: 768px) {
+    .gst-header-main {
+      .gst-header-container {
+        padding: 0 16px;
+
+        .gst-logo-section {
+          .gst-logo {
+            .gst-logo-text {
+              font-size: 16px;
+            }
+          }
+        }
+
+        .gst-nav-desktop {
+          display: none;
+        }
+
+        .gst-cta-section {
+          display: none;
+        }
+
+        .gst-mobile-menu-toggle {
+          display: flex;
+        }
+      }
+
+      .gst-mobile-menu {
+        display: block;
+      }
+    }
+  }
+
+  @media (max-width: 480px) {
+    .gst-header-main {
+      .gst-header-container {
+        height: 60px;
+        padding: 0 12px;
+
+        .gst-logo-section {
+          .gst-logo {
+            gap: 8px;
+
+            .gst-logo-text {
+              font-size: 14px;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  // Simple hover effects
+  .gst-cta-button {
+    transition: all 0.3s ease;
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(132, 204, 22, 0.3);
+    }
+  }
+
+  .gst-nav-item a {
+    transition: color 0.3s ease;
+
+    &:hover {
+      color: #84cc16;
+    }
+  }
+
+  .gst-logo {
+    transition: transform 0.3s ease;
+
+    &:hover {
+      transform: scale(1.05);
+    }
+  }
+}

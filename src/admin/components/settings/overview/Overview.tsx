@@ -15,7 +15,7 @@ export const Overview: React.FC<OverviewProps> = ({ settings }) => {
         <CardHeader>
           <CardTitle>Theme Overview</CardTitle>
           <CardDescription>
-            Get Shielded Theme - A modern, professional WordPress theme with React-powered admin panel
+            Get sheilded Theme - A modern, professional WordPress theme with React-powered admin panel
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">

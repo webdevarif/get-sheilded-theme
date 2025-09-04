@@ -2,11 +2,11 @@
 /**
  * Settings API Handler
  * 
- * @package GetShieldedTheme\Admin
+ * @package GetsheildedTheme\Admin
  * @since 1.0.0
  */
 
-namespace GetShieldedTheme\Admin;
+namespace GetsheildedTheme\Admin;
 
 class SettingsAPI {
     
@@ -90,10 +90,15 @@ class SettingsAPI {
                 'borderRadius' => '0.5rem',
                 'spacing' => '1rem',
             ),
+            'languages' => array(),
         );
         
         $saved_settings = get_option('gst_theme_settings', array());
         $settings = wp_parse_args($saved_settings, $default_settings);
+        
+        // Load languages from language manager
+        $languages = get_option('gst_simple_languages', array());
+        $settings['languages'] = $languages;
         
         return rest_ensure_response(array(
             'success' => true,
@@ -115,33 +120,50 @@ class SettingsAPI {
                 error_log('GST: Settings are empty, returning error');
                 return new \WP_Error(
                     'invalid_settings',
-                    __('Invalid settings data', 'get-shielded-theme'),
+                    __('Invalid settings data', 'get-sheilded-theme'),
                     array('status' => 400)
                 );
             }
             
+            // Remove languages from settings as they are handled by dedicated language API
+            if (isset($settings['languages'])) {
+                unset($settings['languages']);
+                error_log('GST: Removed languages from settings save (handled by language API)');
+            }
+            
             $updated = update_option('gst_theme_settings', $settings);
             
-            if ($updated) {
+            // update_option returns false if the value hasn't changed, which is not an error
+            if ($updated !== false) {
                 error_log('GST: Settings saved successfully');
                 return rest_ensure_response(array(
                     'success' => true,
-                    'message' => __('Settings saved successfully', 'get-shielded-theme'),
+                    'message' => __('Settings saved successfully', 'get-sheilded-theme'),
                 ));
             } else {
-                error_log('GST: Failed to save settings');
-                return new \WP_Error(
-                    'save_failed',
-                    __('Failed to save settings', 'get-shielded-theme'),
-                    array('status' => 500)
-                );
+                // Check if the option already exists and has the same value
+                $existing_settings = get_option('gst_theme_settings', array());
+                if ($existing_settings === $settings) {
+                    error_log('GST: Settings unchanged, returning success');
+                    return rest_ensure_response(array(
+                        'success' => true,
+                        'message' => __('Settings saved successfully', 'get-sheilded-theme'),
+                    ));
+                } else {
+                    error_log('GST: Failed to save settings');
+                    return new \WP_Error(
+                        'save_failed',
+                        __('Failed to save settings', 'get-sheilded-theme'),
+                        array('status' => 500)
+                    );
+                }
             }
         } catch (Exception $e) {
             error_log('GST: Exception in update_settings: ' . $e->getMessage());
             error_log('GST: Stack trace: ' . $e->getTraceAsString());
             return new \WP_Error(
                 'save_failed',
-                __('Failed to save settings: ' . $e->getMessage(), 'get-shielded-theme'),
+                __('Failed to save settings: ' . $e->getMessage(), 'get-sheilded-theme'),
                 array('status' => 500)
             );
         }

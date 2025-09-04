@@ -7,9 +7,9 @@ import './style.scss';
 import './editor.scss';
 
 registerBlockType('gst/hero-section', {
-  title: __('Hero Section', 'get-shielded-theme'),
-  description: __('A modern hero section with customizable content', 'get-shielded-theme'),
-  category: 'get-shielded',
+  title: __('Hero Section', 'get-sheilded-theme'),
+  description: __('A modern hero section with customizable content', 'get-sheilded-theme'),
+  category: 'get-sheilded',
   icon: 'cover-image',
   supports: {
     align: ['wide', 'full'],
@@ -46,25 +46,25 @@ registerBlockType('gst/hero-section', {
     return (
       <>
         <InspectorControls>
-          <PanelBody title={__('Hero Settings', 'get-shielded-theme')}>
+          <PanelBody title={__('Hero Settings', 'get-sheilded-theme')}>
             <TextControl
-              label={__('Background Image URL', 'get-shielded-theme')}
+              label={__('Background Image URL', 'get-sheilded-theme')}
               value={backgroundImage}
               onChange={(value) => setAttributes({ backgroundImage: value })}
             />
             <TextControl
-              label={__('Min Height', 'get-shielded-theme')}
+              label={__('Min Height', 'get-sheilded-theme')}
               value={minHeight}
               onChange={(value) => setAttributes({ minHeight: value })}
             />
             <ToggleControl
-              label={__('Show Overlay', 'get-shielded-theme')}
+              label={__('Show Overlay', 'get-sheilded-theme')}
               checked={showOverlay}
               onChange={(value) => setAttributes({ showOverlay: value })}
             />
             {showOverlay && (
               <TextControl
-                label={__('Overlay Color', 'get-shielded-theme')}
+                label={__('Overlay Color', 'get-sheilded-theme')}
                 value={overlayColor}
                 onChange={(value) => setAttributes({ overlayColor: value })}
               />
@@ -84,16 +84,16 @@ registerBlockType('gst/hero-section', {
               allowedBlocks={['core/heading', 'core/paragraph', 'core/button', 'core/spacer']}
               template={[
                 ['core/heading', {
-                  placeholder: __('Hero Title', 'get-shielded-theme'),
+                  placeholder: __('Hero Title', 'get-sheilded-theme'),
                   level: 1,
                   className: 'hero-title',
                 }],
                 ['core/paragraph', {
-                  placeholder: __('Hero description goes here...', 'get-shielded-theme'),
+                  placeholder: __('Hero description goes here...', 'get-sheilded-theme'),
                   className: 'hero-description',
                 }],
                 ['core/button', {
-                  text: __('Get Started', 'get-shielded-theme'),
+                  text: __('Get Started', 'get-sheilded-theme'),
                   className: 'hero-button',
                 }],
               ]}
