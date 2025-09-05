@@ -97,7 +97,7 @@ class SettingsAPI {
         $settings = wp_parse_args($saved_settings, $default_settings);
         
         // Load languages from language manager
-        $languages = get_option('gst_simple_languages', array());
+        $languages = get_option('gst_languages', array());
         $settings['languages'] = $languages;
         
         return rest_ensure_response(array(

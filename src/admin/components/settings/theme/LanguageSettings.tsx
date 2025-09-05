@@ -5,9 +5,10 @@ import { Button } from '@/components/ui/button';
 import { Switch } from '@/components/ui/switch';
 import { Badge } from '@/components/ui/badge';
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
-import { Plus, X, Globe, Info, Code, ExternalLink } from 'lucide-react';
+import { Plus, X, Globe, Info, Code, ExternalLink, Edit2 } from 'lucide-react';
 import { toast } from 'sonner';
 import { LANGUAGE_ENDPOINTS, getApiHeaders } from '@/lib/api-config';
+import { settingsAPI } from '@/admin/services/api';
 
 interface Language {
   name: string;
@@ -32,36 +33,37 @@ export const LanguageToggle: React.FC<LanguageSettingsProps> = ({ onLanguagesCha
     code: '',
     flag: ''
   });
+  const [editingLanguage, setEditingLanguage] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
   const [sheetOpen, setSheetOpen] = useState(false);
   const [switcherEnabled, setSwitcherEnabled] = useState(false);
 
   useEffect(() => {
-    if (Object.keys(initialLanguages).length > 0) {
+    console.log('LanguageToggle - useEffect triggered with initialLanguages:', initialLanguages);
+    console.log('LanguageToggle - initialLanguages type:', typeof initialLanguages);
+    console.log('LanguageToggle - initialLanguages keys:', Object.keys(initialLanguages || {}));
+    
+    if (initialLanguages !== undefined) {
+      // Use initialLanguages if provided (even if empty)
+      console.log('LanguageToggle - Using initialLanguages from props');
       setLanguages(initialLanguages);
       onLanguagesChange(initialLanguages);
-      // Load switcher state from database, not based on active languages
-      loadLanguages();
+      // Load switcher state from database
+      loadSwitcherState();
     } else {
+      // Only call loadLanguages if initialLanguages is not provided
+      console.log('LanguageToggle - initialLanguages not provided, calling loadLanguages');
       loadLanguages();
     }
   }, [initialLanguages]);
 
   const loadLanguages = async () => {
     try {
-      const response = await fetch(LANGUAGE_ENDPOINTS.GET_LANGUAGES, {
-        headers: getApiHeaders()
-      });
-      
-      if (response.ok) {
-        const data = await response.json();
-        console.log('LanguageToggle - Loaded data:', data);
-        setLanguages(data.languages);
-        onLanguagesChange(data.languages);
-        // Set switcher enabled from API response
-        console.log('LanguageToggle - Setting switcher enabled to:', data.switcher_enabled);
-        setSwitcherEnabled(data.switcher_enabled);
-      }
+      const data = await settingsAPI.getLanguages();
+      console.log('LanguageToggle - Loaded data:', data);
+      setLanguages(data.languages);
+      onLanguagesChange(data.languages);
+      setSwitcherEnabled(data.switcher_enabled);
     } catch (error) {
       console.error('Error loading languages:', error);
     } finally {
@@ -82,27 +84,22 @@ export const LanguageToggle: React.FC<LanguageSettingsProps> = ({ onLanguagesCha
 
   const saveLanguages = async (updatedLanguages: Record<string, Language>, switcherEnabled?: boolean) => {
     try {
-      const response = await fetch(LANGUAGE_ENDPOINTS.SAVE_LANGUAGES, {
-        method: 'POST',
-        headers: getApiHeaders(),
-        body: JSON.stringify({ 
-          languages: updatedLanguages,
-          switcher_enabled: switcherEnabled
-        })
+      console.log('LanguageToggle - saveLanguages called with:', {
+        languages: updatedLanguages,
+        switcherEnabled,
+        languagesCount: Object.keys(updatedLanguages).length
       });
-
-      if (response.ok) {
-        const data = await response.json();
-        console.log('LanguageToggle - Saved data:', data);
-        setLanguages(data.languages);
-        onLanguagesChange(data.languages);
-        // Set switcher enabled from API response
-        console.log('LanguageToggle - Setting switcher enabled to:', data.switcher_enabled);
-        setSwitcherEnabled(data.switcher_enabled);
-        return data.languages;
+      
+      const success = await settingsAPI.saveLanguages(updatedLanguages, switcherEnabled ?? false);
+      if (success) {
+        setLanguages(updatedLanguages);
+        onLanguagesChange(updatedLanguages);
+        if (switcherEnabled !== undefined) {
+          setSwitcherEnabled(switcherEnabled);
+        }
+        return updatedLanguages;
       } else {
-        const errorData = await response.json();
-        throw new Error(errorData.message || 'Failed to save languages');
+        throw new Error('Failed to save languages');
       }
     } catch (error) {
       console.error('Error saving languages:', error);
@@ -152,13 +149,15 @@ export const LanguageToggle: React.FC<LanguageSettingsProps> = ({ onLanguagesCha
       }
     };
 
+    console.log('Adding language with flag:', newLanguage.flag);
+    console.log('Updated languages object:', updatedLanguages);
+
     setSaving(true);
     try {
       const savedLanguages = await saveLanguages(updatedLanguages);
+      console.log('Saved languages response:', savedLanguages);
       setNewLanguage({ name: '', code: '', flag: '' });
       toast.success('Language added successfully!');
-      // Force reload to ensure UI updates
-      await loadLanguages();
       // Close the sheet
       setSheetOpen(false);
     } catch (error) {
@@ -167,6 +166,92 @@ export const LanguageToggle: React.FC<LanguageSettingsProps> = ({ onLanguagesCha
     } finally {
       setSaving(false);
     }
+  };
+
+  const editLanguage = async () => {
+    if (!editingLanguage || !newLanguage.name || !newLanguage.code || !newLanguage.flag) {
+      toast.error('Please fill in all fields');
+      return;
+    }
+
+    const code = newLanguage.code.toLowerCase();
+    const originalCode = editingLanguage;
+    
+    console.log('Editing language with flag:', newLanguage.flag);
+    console.log('Original code:', originalCode, 'New code:', code);
+    
+    // If code changed, we need to remove the old one and add the new one
+    if (originalCode !== code) {
+      const updatedLanguages = { ...languages };
+      delete updatedLanguages[originalCode];
+      
+      updatedLanguages[code] = {
+        name: newLanguage.name,
+        code: code,
+        flag: newLanguage.flag,
+        country: newLanguage.name,
+        is_default: languages[originalCode]?.is_default || false,
+        active: languages[originalCode]?.active || true
+      };
+
+      setSaving(true);
+      try {
+        const savedLanguages = await saveLanguages(updatedLanguages);
+        setNewLanguage({ name: '', code: '', flag: '' });
+        setEditingLanguage(null);
+        toast.success('Language updated successfully!');
+        setSheetOpen(false);
+      } catch (error) {
+        console.error('Error updating language:', error);
+        toast.error('Failed to update language');
+      } finally {
+        setSaving(false);
+      }
+    } else {
+      // Just update the existing language
+      const updatedLanguages = {
+        ...languages,
+        [code]: {
+          ...languages[code],
+          name: newLanguage.name,
+          flag: newLanguage.flag,
+          country: newLanguage.name
+        }
+      };
+
+      setSaving(true);
+      try {
+        const savedLanguages = await saveLanguages(updatedLanguages);
+        setNewLanguage({ name: '', code: '', flag: '' });
+        setEditingLanguage(null);
+        toast.success('Language updated successfully!');
+        setSheetOpen(false);
+      } catch (error) {
+        console.error('Error updating language:', error);
+        toast.error('Failed to update language');
+      } finally {
+        setSaving(false);
+      }
+    }
+  };
+
+  const startEditLanguage = (code: string) => {
+    const lang = languages[code];
+    if (lang) {
+      setEditingLanguage(code);
+      setNewLanguage({
+        name: lang.name,
+        code: lang.code,
+        flag: lang.flag
+      });
+      setSheetOpen(true);
+    }
+  };
+
+  const cancelEdit = () => {
+    setEditingLanguage(null);
+    setNewLanguage({ name: '', code: '', flag: '' });
+    setSheetOpen(false);
   };
 
   const toggleLanguageActive = async (code: string) => {
@@ -294,7 +379,10 @@ export const LanguageToggle: React.FC<LanguageSettingsProps> = ({ onLanguagesCha
               return (
                 <div key={code} className="flex items-center justify-between p-3 border-b group hover:bg-gray-50 transition-colors duration-200">
                   <div className="flex items-center space-x-2">
-                    <span className="text-lg">{lang.flag}</span>
+                    <div 
+                      className="text-lg w-6 h-6 flex items-center justify-center"
+                      dangerouslySetInnerHTML={{ __html: lang.flag }}
+                    />
                     <div>
                       <p className="font-medium text-sm">{lang.name}</p>
                       <p className="text-xs text-muted-foreground">
@@ -304,6 +392,14 @@ export const LanguageToggle: React.FC<LanguageSettingsProps> = ({ onLanguagesCha
                     </div>
                   </div>
                   <div className="flex items-center space-x-1">
+                    <Button
+                      onClick={() => startEditLanguage(code)}
+                      variant="outline"
+                      size="sm"
+                      className="h-6 w-6 p-0 text-blue-600 hover:text-blue-700 opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+                    >
+                      <Edit2 className="h-3 w-3" />
+                    </Button>
                     {!lang.is_default && lang.active && (
                       <Badge
                         onClick={() => setAsDefault(code)}
@@ -337,6 +433,28 @@ export const LanguageToggle: React.FC<LanguageSettingsProps> = ({ onLanguagesCha
         )}
       </div>
 
+      {/* Debug Button - Temporary */}
+      <Button 
+        onClick={async () => {
+          try {
+            const response = await fetch('/wp-json/gst/v1/languages/debug', {
+              method: 'GET',
+              headers: getApiHeaders()
+            });
+            const data = await response.json();
+            console.log('Debug data:', data);
+            alert(`Option: ${data.option_name}\nExists: ${data.option_exists}\nLanguages: ${JSON.stringify(data.languages)}`);
+          } catch (error) {
+            console.error('Debug error:', error);
+          }
+        }}
+        variant="outline"
+        size="sm"
+        className="mb-2"
+      >
+        Debug Languages
+      </Button>
+
       {/* Add Language Sheet */}
       <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
         <SheetTrigger asChild>
@@ -347,9 +465,12 @@ export const LanguageToggle: React.FC<LanguageSettingsProps> = ({ onLanguagesCha
         </SheetTrigger>
         <SheetContent className="w-[400px] sm:w-[540px]">
           <SheetHeader>
-            <SheetTitle>Add New Language</SheetTitle>
+            <SheetTitle>{editingLanguage ? 'Edit Language' : 'Add New Language'}</SheetTitle>
             <SheetDescription>
-              Add a new language to your website. The first language will become the default.
+              {editingLanguage 
+                ? 'Update the language details below.' 
+                : 'Add a new language to your website. The first language will become the default.'
+              }
             </SheetDescription>
           </SheetHeader>
           
@@ -366,15 +487,21 @@ export const LanguageToggle: React.FC<LanguageSettingsProps> = ({ onLanguagesCha
             
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label htmlFor="lang-flag">Flag Emoji *</Label>
+                <Label htmlFor="lang-flag">Flag (Emoji, SVG, or Image) *</Label>
                 <Input
                   id="lang-flag"
-                  placeholder="🇪🇸"
+                  placeholder="🇪🇸 or <svg>...</svg> or <img src='...' />"
                   value={newLanguage.flag}
-                  onChange={(e) => setNewLanguage(prev => ({ ...prev, flag: e.target.value }))}
-                  className="text-center text-xl"
-                  maxLength={2}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                    console.log('Flag input changed:', e.target.value);
+                    setNewLanguage(prev => ({ ...prev, flag: e.target.value }));
+                  }}
+                  className="text-sm font-mono"
+                  maxLength={1000}
                 />
+                <p className="text-xs text-muted-foreground">
+                  Supports: Emoji (🇪🇸), SVG code, or HTML image tags
+                </p>
               </div>
               <div className="space-y-2">
                 <Label htmlFor="lang-code">Code *</Label>
@@ -385,7 +512,13 @@ export const LanguageToggle: React.FC<LanguageSettingsProps> = ({ onLanguagesCha
                   onChange={(e) => setNewLanguage(prev => ({ ...prev, code: e.target.value.toLowerCase() }))}
                   className="font-mono"
                   maxLength={5}
+                  disabled={!!editingLanguage}
                 />
+                {editingLanguage && (
+                  <p className="text-xs text-muted-foreground">
+                    Language code cannot be changed when editing
+                  </p>
+                )}
               </div>
             </div>
             
@@ -393,14 +526,25 @@ export const LanguageToggle: React.FC<LanguageSettingsProps> = ({ onLanguagesCha
               URL will be: <code className="bg-muted px-1 rounded">/{newLanguage.code || 'code'}/</code>
             </div>
             
-            <Button 
-              onClick={addLanguage} 
-              disabled={saving || !newLanguage.code || !newLanguage.name || !newLanguage.flag}
-              className="w-full"
-            >
-              <Plus className="h-4 w-4 mr-2" />
-              {saving ? 'Adding...' : 'Add Language'}
-            </Button>
+            <div className="flex space-x-2">
+              <Button 
+                onClick={editingLanguage ? editLanguage : addLanguage} 
+                disabled={saving || !newLanguage.code || !newLanguage.name || !newLanguage.flag}
+                className="flex-1"
+              >
+                <Plus className="h-4 w-4 mr-2" />
+                {saving ? (editingLanguage ? 'Updating...' : 'Adding...') : (editingLanguage ? 'Update Language' : 'Add Language')}
+              </Button>
+              {editingLanguage && (
+                <Button 
+                  onClick={cancelEdit}
+                  variant="outline"
+                  disabled={saving}
+                >
+                  Cancel
+                </Button>
+              )}
+            </div>
           </div>
         </SheetContent>
       </Sheet>
@@ -419,15 +563,9 @@ export const LanguageSettings: React.FC<LanguageSettingsProps> = ({ onLanguagesC
 
   const loadLanguages = async () => {
     try {
-      const response = await fetch(LANGUAGE_ENDPOINTS.GET_LANGUAGES, {
-        headers: getApiHeaders()
-      });
-      
-      if (response.ok) {
-        const data = await response.json();
-        setLanguages(data.languages || data);
-        onLanguagesChange(data.languages || data);
-      }
+      const data = await settingsAPI.getLanguages();
+      setLanguages(data.languages);
+      onLanguagesChange(data.languages);
     } catch (error) {
       console.error('Error loading languages:', error);
     } finally {

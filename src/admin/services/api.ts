@@ -263,6 +263,64 @@ class SettingsAPI {
       return false;
     }
   }
+
+  // Simple Language API methods
+  async getLanguages(): Promise<{ languages: Record<string, Language>; switcher_enabled: boolean }> {
+    try {
+      const response = await fetch(`${this.getApiUrl()}languages`, {
+        method: 'GET',
+        headers: {
+          'X-WP-Nonce': this.getNonce(),
+        },
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        return {
+          languages: data.languages || {},
+          switcher_enabled: data.switcher_enabled || false
+        };
+      } else {
+        console.error('Error fetching languages:', await response.text());
+        return { languages: {}, switcher_enabled: false };
+      }
+    } catch (error) {
+      console.error('Error fetching languages:', error);
+      return { languages: {}, switcher_enabled: false };
+    }
+  }
+
+  async saveLanguages(languages: Record<string, Language>, switcherEnabled: boolean): Promise<boolean> {
+    try {
+      const response = await fetch(`${this.getApiUrl()}languages`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-WP-Nonce': this.getNonce(),
+        },
+        body: JSON.stringify({
+          languages,
+          switcher_enabled: switcherEnabled
+        }),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log('Languages saved successfully:', data);
+        toast.success('Languages saved successfully!');
+        return true;
+      } else {
+        const errorData = await response.json();
+        console.error('Error saving languages:', errorData);
+        toast.error('Failed to save languages');
+        return false;
+      }
+    } catch (error) {
+      console.error('Error saving languages:', error);
+      toast.error('Failed to save languages');
+      return false;
+    }
+  }
 }
 
 export const settingsAPI = new SettingsAPI();

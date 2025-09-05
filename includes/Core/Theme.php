@@ -49,7 +49,9 @@ class Theme {
      */
     private function init_language() {
         // Load only the language manager
+        error_log('GST Theme - Loading LanguageManager from: ' . GST_THEME_PATH . '/includes/Language/LanguageManager.php');
         require_once GST_THEME_PATH . '/includes/Language/LanguageManager.php';
+        error_log('GST Theme - LanguageManager loaded successfully');
     }
     
     /**
