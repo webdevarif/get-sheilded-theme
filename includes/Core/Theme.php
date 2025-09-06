@@ -48,10 +48,10 @@ class Theme {
      * Initialize language system
      */
     private function init_language() {
-        // Load only the language manager
-        error_log('GST Theme - Loading LanguageManager from: ' . GST_THEME_PATH . '/includes/Language/LanguageManager.php');
-        require_once GST_THEME_PATH . '/includes/Language/LanguageManager.php';
-        error_log('GST Theme - LanguageManager loaded successfully');
+        // Load the simple language API
+        error_log('GST Theme - Loading LanguageAPI from: ' . GST_THEME_PATH . '/includes/Rest/LanguageAPI.php');
+        require_once GST_THEME_PATH . '/includes/Rest/LanguageAPI.php';
+        error_log('GST Theme - LanguageAPI loaded successfully');
     }
     
     /**

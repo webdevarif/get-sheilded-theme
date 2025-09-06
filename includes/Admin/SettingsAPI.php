@@ -96,9 +96,8 @@ class SettingsAPI {
         $saved_settings = get_option('gst_theme_settings', array());
         $settings = wp_parse_args($saved_settings, $default_settings);
         
-        // Load languages from language manager
-        $languages = get_option('gst_languages', array());
-        $settings['languages'] = $languages;
+        // Languages are now handled by the dedicated Language API
+        $settings['languages'] = [];
         
         return rest_ensure_response(array(
             'success' => true,

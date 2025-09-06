@@ -7,7 +7,7 @@ import { Palette, Type, Layout, Globe } from 'lucide-react';
 import Select from 'react-select';
 import { Button } from '@/components/ui/button';
 import { ColorPicker } from './ColorPicker';
-import { LanguageSettings, LanguageToggle } from './LanguageSettings';
+import { SimpleLanguageSettings } from './SimpleLanguageSettings';
 import { ThemeSettings as ThemeSettingsType, fontFamilies } from '../../../services/api';
 
 interface LanguageManagementInterfaceProps {
@@ -16,7 +16,7 @@ interface LanguageManagementInterfaceProps {
 }
 
 const LanguageManagementInterface: React.FC<LanguageManagementInterfaceProps> = ({ languages, onLanguagesChange }) => {
-  return <LanguageSettings onLanguagesChange={onLanguagesChange} />;
+  return <SimpleLanguageSettings />;
 };
 
 interface ThemeSettingsProps {
@@ -391,7 +391,7 @@ export const ThemeSettings: React.FC<ThemeSettingsProps> = ({
               </div>
             </AccordionTrigger>
               <AccordionContent className="space-y-3 pt-2">
-                <LanguageToggle onLanguagesChange={handleLanguagesChange} initialLanguages={settings.languages || {}} />
+                <SimpleLanguageSettings />
               </AccordionContent>
           </AccordionItem>
         </Accordion>
