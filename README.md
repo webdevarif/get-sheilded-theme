@@ -1,17 +1,16 @@
 # Get sheilded Theme
 
-A modern WordPress theme built with Object-Oriented Programming, React admin interface, and Gutenberg blocks using ShadCN UI components.
+A modern WordPress theme built with Object-Oriented Programming, pure PHP admin interface, and Gutenberg blocks.
 
 ## Features
 
 - ✅ **Object-Oriented Architecture**: Clean, modular PHP code structure
-- ✅ **React Admin Interface**: Modern admin panel built with Vite and React
-- ✅ **Gutenberg Blocks**: Custom blocks with ShadCN UI styling
-- ✅ **Separate Build Systems**: Webpack for frontend/Gutenberg, Vite for admin
-- ✅ **ShadCN UI Components**: Latest CLI-based component system
+- ✅ **Pure PHP Admin Interface**: Fast, lightweight admin panel with Alpine.js
+- ✅ **Gutenberg Blocks**: Custom blocks with modern styling
+- ✅ **Separate Build Systems**: Webpack for frontend/Gutenberg
 - ✅ **GSAP Animations**: Professional animations with GSAP and ScrollTrigger
 - ✅ **Tailwind CSS in SCSS**: Modern CSS with Tailwind integration
-- ✅ **TypeScript Support**: Full TypeScript integration
+- ✅ **TypeScript Support**: Full TypeScript integration for Gutenberg
 - ✅ **Modern Development Workflow**: ESLint, Prettier, and automated builds
 
 ## Directory Structure
@@ -24,15 +23,11 @@ get-sheilded-theme/
 │   ├── Admin/               # Admin-specific classes
 │   └── Blocks/              # Gutenberg blocks registry
 ├── src/
-│   ├── admin/               # React admin interface (Vite)
 │   ├── frontend/            # Frontend assets (Webpack)
 │   ├── gutenberg/           # Gutenberg blocks (Webpack)
-│   ├── components/ui/       # ShadCN UI components
-│   ├── lib/                 # Utility functions
 │   └── styles/              # Global styles
 ├── dist/                    # Compiled assets
 ├── webpack.*.js             # Webpack configurations
-├── vite.admin.config.js     # Vite configuration for admin
 └── package.json             # Dependencies and build scripts
 ```
 
@@ -131,13 +126,11 @@ npm run dev
 
 # Individual development builds
 npm run dev:frontend    # Frontend assets (Webpack)
-npm run dev:admin      # Admin React app (Vite)  
 npm run dev:gutenberg  # Gutenberg blocks (Webpack)
 
 # Production builds
 npm run build          # Build all assets for production
 npm run build:frontend # Build frontend only
-npm run build:admin    # Build admin only
 npm run build:gutenberg # Build Gutenberg only
 
 # Code quality
@@ -153,10 +146,9 @@ npm run type-check    # TypeScript type checking
    - Output: `dist/frontend/`
    - Features: Sass, PostCSS, Babel
 
-2. **Admin** (Vite):
-   - Entry: `src/admin/main.tsx`
-   - Output: `dist/admin/`
-   - Features: React, TypeScript, Tailwind CSS
+2. **Admin** (Pure PHP):
+   - Location: `includes/Admin/SettingsPage.php`
+   - Features: PHP, HTML, Tailwind CSS, Alpine.js
 
 3. **Gutenberg** (Webpack):
    - Entry: `src/gutenberg/index.js`
@@ -172,14 +164,14 @@ npm run type-check    # TypeScript type checking
 - **Admin/Scripts.php**: Admin interface and menu management
 - **Blocks/BlockRegistry.php**: Gutenberg blocks registration
 
-### React Admin Interface
+### Pure PHP Admin Interface
 
-The admin interface is built with React and Vite, providing a modern development experience:
+The admin interface is built with pure PHP, HTML, and Alpine.js, providing a fast and lightweight experience:
 
-- TypeScript support
-- ShadCN UI components
-- Hot module replacement
-- Optimized builds
+- No build process required
+- Tailwind CSS for styling
+- Alpine.js for interactivity
+- Direct PHP integration
 
 ### Gutenberg Blocks
 
@@ -191,7 +183,7 @@ Custom blocks included:
 4. **Call to Action**: Centered CTA section
 5. **Pricing Table**: Responsive pricing grid
 
-All blocks use ShadCN UI styling and are fully responsive.
+All blocks use modern styling and are fully responsive.
 
 ## Customization
 

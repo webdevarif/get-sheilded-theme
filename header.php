@@ -5,7 +5,7 @@
  * @package GetsheildedTheme
  */
 
-use GetsheildedTheme\Admin\Templates;
+use GetsheildedTheme\Inc\Classes\Templates;
 ?>
 <!DOCTYPE html>
 <html <?php language_attributes(); ?>>
@@ -23,7 +23,10 @@ use GetsheildedTheme\Admin\Templates;
     <header id="masthead" class="site-header">
         <?php
         // Get custom header template
-        $header_template = Templates::get_template('header');
+        $header_template = null;
+        if (class_exists('\GetsheildedTheme\Inc\Classes\Templates')) {
+            $header_template = \GetsheildedTheme\Inc\Classes\Templates::get_template('header');
+        }
         
         
         if ($header_template) {

@@ -3,10 +3,13 @@
 
     <footer id="colophon" class="site-footer">
         <?php
-        use GetsheildedTheme\Admin\Templates;
+        use GetsheildedTheme\Inc\Classes\Templates;
         
         // Get custom footer template
-        $footer_template = Templates::get_template('footer');
+        $footer_template = null;
+        if (class_exists('\GetsheildedTheme\Inc\Classes\Templates')) {
+            $footer_template = \GetsheildedTheme\Inc\Classes\Templates::get_template('footer');
+        }
         
         if ($footer_template) {
             // Display custom footer content
