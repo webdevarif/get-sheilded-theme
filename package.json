@@ -13,12 +13,16 @@
     "build:admin": "webpack --mode production --config webpack.admin.js"
   },
   "dependencies": {
+    "@babel/preset-react": "^7.27.1",
     "@wordpress/block-editor": "^15.3.0",
     "@wordpress/blocks": "^15.3.0",
     "@wordpress/components": "^30.3.0",
     "@wordpress/element": "^6.30.0",
     "@wordpress/i18n": "^6.3.0",
     "gsap": "^3.12.2",
+    "lucide-react": "^0.542.0",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
     "react-select": "^5.10.2",
     "vanilla-tilt": "^1.8.1"
   },

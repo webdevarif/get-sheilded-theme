@@ -29,6 +29,8 @@ class Get_Sheilded_Theme {
 	 * Protected class constructor to prevent direct object creation
 	 */
 	protected function __construct() {
+		// Load helper functions
+		$this->load_helpers();
 
 		// Load class instances
 		Frontend_Scripts::get_instance();
@@ -42,6 +44,14 @@ class Get_Sheilded_Theme {
 		Menu_Manager::get_instance();
 
 		$this->setup_hooks();
+	}
+
+	/**
+	 * Load helper functions
+	 */
+	private function load_helpers() {
+		// Load language helpers
+		require_once GST_THEME_PATH . '/inc/helpers/language-helpers.php';
 	}
 
 	/**

@@ -777,6 +777,9 @@ class Settings {
             // Get existing settings first
             $existing_settings = get_option('gst_theme_settings', $this->get_default_settings());
             
+            // Handle checkbox values properly - unchecked checkboxes don't send data
+            $settings = $this->handle_checkbox_values($settings, $existing_settings);
+            
             // Merge with existing settings to preserve other data
             $merged_settings = $this->merge_settings($existing_settings, $settings);
             
@@ -879,6 +882,45 @@ class Settings {
     }
     
     /**
+     * Handle checkbox values - unchecked checkboxes don't send data
+     */
+    private function handle_checkbox_values($settings, $existing_settings) {
+        // Define known checkbox fields that should be set to false when not present
+        $checkbox_fields = [
+            'languages' => [
+                'switcher_enabled' => false
+            ]
+        ];
+        
+        // Recursively handle checkbox values
+        $settings = $this->process_checkbox_fields($settings, $checkbox_fields, $existing_settings);
+        
+        return $settings;
+    }
+    
+    /**
+     * Process checkbox fields recursively
+     */
+    private function process_checkbox_fields($settings, $checkbox_fields, $existing_settings) {
+        foreach ($checkbox_fields as $key => $value) {
+            if (is_array($value)) {
+                // Recursively process nested arrays
+                if (!isset($settings[$key])) {
+                    $settings[$key] = [];
+                }
+                $settings[$key] = $this->process_checkbox_fields($settings[$key], $value, $existing_settings[$key] ?? []);
+            } else {
+                // This is a checkbox field - set to false if not present in POST data
+                if (!isset($settings[$key])) {
+                    $settings[$key] = false;
+                }
+            }
+        }
+        
+        return $settings;
+    }
+    
+    /**
      * Sanitize settings data recursively
      */
     private function sanitize_settings($data) {
@@ -888,7 +930,12 @@ class Settings {
                 if (is_array($value)) {
                     $sanitized[sanitize_key($key)] = $this->sanitize_settings($value);
                 } else {
-                    $sanitized[sanitize_key($key)] = sanitize_text_field($value);
+                    // Handle boolean values properly
+                    if (is_bool($value)) {
+                        $sanitized[sanitize_key($key)] = $value;
+                    } else {
+                        $sanitized[sanitize_key($key)] = sanitize_text_field($value);
+                    }
                 }
             }
             return $sanitized;

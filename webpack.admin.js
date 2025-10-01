@@ -5,6 +5,7 @@ module.exports = {
   mode: 'production',
   entry: {
     admin: './src/admin/styles/admin.css',
+    'translate-admin': './src/admin/translate-admin.css',
   },
   output: {
     path: path.resolve(__dirname, 'dist/admin'),
