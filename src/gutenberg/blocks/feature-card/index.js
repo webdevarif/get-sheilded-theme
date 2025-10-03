@@ -6,10 +6,10 @@ import { PanelBody, TextControl, SelectControl } from '@wordpress/components';
 import './style.scss';
 import './editor.scss';
 
-registerBlockType('gst/feature-card', {
-  title: __('Feature Card', 'get-sheilded-theme'),
-  description: __('A modern feature card with icon, title, and description', 'get-sheilded-theme'),
-  category: 'get-sheilded',
+registerBlockType('get-shielded/feature-card', {
+  title: __('Feature Card', 'get-shielded-theme'),
+  description: __('A modern feature card with icon, title, and description', 'get-shielded-theme'),
+  category: 'get-shielded',
   icon: 'id-alt',
   supports: {
     align: false,
@@ -57,15 +57,15 @@ registerBlockType('gst/feature-card', {
     return (
       <>
         <InspectorControls>
-          <PanelBody title={__('Card Settings', 'get-sheilded-theme')}>
+          <PanelBody title={__('Card Settings', 'get-shielded-theme')}>
             <SelectControl
-              label={__('Icon', 'get-sheilded-theme')}
+              label={__('Icon', 'get-shielded-theme')}
               value={iconName}
               options={iconOptions}
               onChange={(value) => setAttributes({ iconName: value })}
             />
             <SelectControl
-              label={__('Card Style', 'get-sheilded-theme')}
+              label={__('Card Style', 'get-shielded-theme')}
               value={cardStyle}
               options={styleOptions}
               onChange={(value) => setAttributes({ cardStyle: value })}
@@ -86,14 +86,14 @@ registerBlockType('gst/feature-card', {
               className="gst-feature-card__title"
               value={title}
               onChange={(value) => setAttributes({ title: value })}
-              placeholder={__('Feature title...', 'get-sheilded-theme')}
+              placeholder={__('Feature title...', 'get-shielded-theme')}
             />
             <RichText
               tagName="p"
               className="gst-feature-card__description"
               value={description}
               onChange={(value) => setAttributes({ description: value })}
-              placeholder={__('Feature description...', 'get-sheilded-theme')}
+              placeholder={__('Feature description...', 'get-shielded-theme')}
             />
           </div>
         </div>

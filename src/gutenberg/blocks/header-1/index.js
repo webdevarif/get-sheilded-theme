@@ -10,10 +10,10 @@ import './style.scss';
 import './editor.scss';
 
 // Register the block editor interface
-registerBlockType('gst/header-1', {
-  title: __('Header 1', 'get-sheilded-theme'),
-  description: __('A responsive header with desktop/mobile logo options and smooth animations', 'get-sheilded-theme'),
-  category: 'get-sheilded',
+registerBlockType('get-shielded/header-1', {
+  title: __('Header 1', 'get-shielded-theme'),
+  description: __('A responsive header with desktop/mobile logo options and smooth animations', 'get-shielded-theme'),
+  category: 'get-shielded',
   icon: 'admin-site',
   supports: {
     align: ['wide', 'full'],
@@ -45,7 +45,7 @@ registerBlockType('gst/header-1', {
     return (
       <div {...blockProps}>
         <div className="bg-black py-1 px-5 text-xs text-gray-400">
-          <span className="font-normal tracking-wide">{__('Homepage', 'get-sheilded-theme')}</span>
+          <span className="font-normal tracking-wide">{__('Homepage', 'get-shielded-theme')}</span>
         </div>
         
         <header className="relative w-full" style={{ backgroundColor }}>
@@ -137,7 +137,7 @@ registerBlockType('gst/header-1', {
 
             <button 
               className="md:hidden flex flex-col bg-transparent border-none cursor-pointer p-2 gap-1 hover:opacity-80 transition-opacity duration-300"
-              aria-label={__('Toggle mobile menu', 'get-sheilded-theme')}
+              aria-label={__('Toggle mobile menu', 'get-shielded-theme')}
             >
               <span className="w-6 h-0.5 bg-white rounded-sm transition-all duration-300"></span>
               <span className="w-6 h-0.5 bg-white rounded-sm transition-all duration-300"></span>

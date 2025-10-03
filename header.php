@@ -5,7 +5,6 @@
  * @package GetsheildedTheme
  */
 
-use GetsheildedTheme\Inc\Classes\Templates;
 ?>
 <!DOCTYPE html>
 <html <?php language_attributes(); ?>>
@@ -24,9 +23,7 @@ use GetsheildedTheme\Inc\Classes\Templates;
         <?php
         // Get custom header template
         $header_template = null;
-        if (class_exists('\GetsheildedTheme\Inc\Classes\Templates')) {
-            $header_template = \GetsheildedTheme\Inc\Classes\Templates::get_template('header');
-        }
+        $header_template = gst_get_template('header', get_the_ID());
         
         
         if ($header_template) {

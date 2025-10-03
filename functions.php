@@ -167,6 +167,22 @@ function gst_register_templates_post_type() {
     ));
 }
 
+// Register custom block category
+add_filter('block_categories_all', 'gst_register_block_category', 10, 2);
+
+function gst_register_block_category($categories, $post) {
+    return array_merge(
+        array(
+            array(
+                'slug' => 'get-shielded',
+                'title' => __('Get Shielded', 'get-shielded-theme'),
+                'icon' => 'shield-alt',
+            ),
+        ),
+        $categories
+    );
+}
+
 // Add Gutenberg support
 add_action('enqueue_block_editor_assets', 'gst_enqueue_gutenberg_assets');
 
@@ -308,6 +324,52 @@ function gst_enqueue_template_react_assets() {
     );
 }
 
+
+// Template loading function
+function gst_get_template($type, $current_page_id = null) {
+    $args = array(
+        'post_type' => 'gst_theme_templates',
+        'meta_query' => array(
+            array(
+                'key' => 'gst_template_type',
+                'value' => $type,
+                'compare' => '='
+            )
+        ),
+        'meta_key' => 'gst_priority',
+        'orderby' => 'meta_value_num',
+        'order' => 'DESC',
+        'posts_per_page' => 1
+    );
+
+    $templates = get_posts($args);
+    
+    if (empty($templates)) {
+        return null;
+    }
+
+    $template = $templates[0];
+    $display_option = get_post_meta($template->ID, 'gst_display_option', true);
+
+    // Check display conditions
+    if ($display_option === 'entire_site') {
+        $exclude_pages = get_post_meta($template->ID, 'gst_exclude_pages', true);
+        $exclude_pages_array = is_string($exclude_pages) ? json_decode($exclude_pages, true) : array();
+        
+        if (in_array($current_page_id, $exclude_pages_array)) {
+            return null;
+        }
+    } elseif ($display_option === 'specific_pages') {
+        $selected_pages = get_post_meta($template->ID, 'gst_selected_pages', true);
+        $selected_pages_array = is_string($selected_pages) ? json_decode($selected_pages, true) : array();
+        
+        if (!in_array($current_page_id, $selected_pages_array)) {
+            return null;
+        }
+    }
+
+    return $template;
+}
 
 // Theme activation hook
 function gst_theme_activation() {

@@ -3,13 +3,10 @@
 
     
     <?php
-        use GetsheildedTheme\Inc\Classes\Templates;
         
         // Get custom footer template
         $footer_template = null;
-        if (class_exists('\GetsheildedTheme\Inc\Classes\Templates')) {
-            $footer_template = \GetsheildedTheme\Inc\Classes\Templates::get_template('footer');
-        }
+        $footer_template = gst_get_template('footer', get_the_ID());
         
         if ($footer_template) {
             // Display custom footer content
