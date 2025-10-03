@@ -1,273 +1,129 @@
-# Get sheilded Theme
+# Get Sheilded Theme - Clean & Reusable
 
-A modern WordPress theme built with Object-Oriented Programming, pure PHP admin interface, and Gutenberg blocks.
+A modern WordPress theme built with **@wordpress/scripts** for optimal performance and maintainability.
 
-## Features
-
-- ✅ **Object-Oriented Architecture**: Clean, modular PHP code structure
-- ✅ **Pure PHP Admin Interface**: Fast, lightweight admin panel with Alpine.js
-- ✅ **Gutenberg Blocks**: Custom blocks with modern styling
-- ✅ **Separate Build Systems**: Webpack for frontend/Gutenberg
-- ✅ **GSAP Animations**: Professional animations with GSAP and ScrollTrigger
-- ✅ **Tailwind CSS in SCSS**: Modern CSS with Tailwind integration
-- ✅ **TypeScript Support**: Full TypeScript integration for Gutenberg
-- ✅ **Modern Development Workflow**: ESLint, Prettier, and automated builds
-
-## Directory Structure
-
-```
-get-sheilded-theme/
-├── includes/                 # PHP Classes (OOP)
-│   ├── Core/                # Core theme functionality
-│   ├── Frontend/            # Frontend-specific classes
-│   ├── Admin/               # Admin-specific classes
-│   └── Blocks/              # Gutenberg blocks registry
-├── src/
-│   ├── frontend/            # Frontend assets (Webpack)
-│   ├── gutenberg/           # Gutenberg blocks (Webpack)
-│   └── styles/              # Global styles
-├── dist/                    # Compiled assets
-├── webpack.*.js             # Webpack configurations
-└── package.json             # Dependencies and build scripts
-```
-
-## Installation
-
-### Option 1: Automated Setup (Recommended)
-
-1. **Clone or download** this theme to your WordPress themes directory:
-   ```bash
-   cd /path/to/wordpress/wp-content/themes/
-   git clone <repository-url> get-sheilded-theme
-   cd get-sheilded-theme
-   ```
-
-2. **Run the setup script**:
-   ```bash
-   # On Linux/Mac
-   chmod +x setup.sh
-   ./setup.sh
-
-   # On Windows
-   setup.bat
-   ```
-
-3. **Activate the theme** in WordPress Admin → Appearance → Themes
-
-### Option 2: Manual Setup
-
-1. **Clone the repository**:
-   ```bash
-   cd /path/to/wordpress/wp-content/themes/
-   git clone <repository-url> get-sheilded-theme
-   cd get-sheilded-theme
-   ```
-
-2. **Install dependencies** (if you encounter issues, use the alternative package.json):
-   ```bash
-   # Try this first
-   npm install --legacy-peer-deps
-
-   # If that fails, use simplified dependencies
-   cp package-simple.json package.json
-   npm install --legacy-peer-deps
-   ```
-
-3. **Initialize ShadCN UI**:
-   ```bash
-   npx shadcn-ui@latest init
-   ```
-   Choose: Default style, Slate base color, Yes to CSS variables
-
-4. **Add essential ShadCN components**:
-   ```bash
-   npx shadcn-ui@latest add button card input label tabs toast
-   ```
-
-5. **Build assets**:
-   ```bash
-   # Development build with watch mode
-   npm run dev
-
-   # Production build
-   npm run build
-   ```
-
-6. **Activate the theme** in WordPress Admin → Appearance → Themes
-
-### Troubleshooting Installation
-
-If you encounter dependency conflicts:
-
-1. **Clear npm cache**:
-   ```bash
-   npm cache clean --force
-   ```
-
-2. **Delete node_modules and try again**:
-   ```bash
-   rm -rf node_modules package-lock.json
-   npm install --legacy-peer-deps
-   ```
-
-3. **Use the simplified package.json**:
-   ```bash
-   cp package-simple.json package.json
-   npm install --legacy-peer-deps
-   ```
-
-## Development
-
-### Available Scripts
+## 🚀 Quick Start
 
 ```bash
-# Start development with watch mode for all builds
+# Install dependencies
+npm install
+
+# Build for production
+npm run build
+
+# Development with watch mode
 npm run dev
 
-# Individual development builds
-npm run dev:frontend    # Frontend assets (Webpack)
-npm run dev:gutenberg  # Gutenberg blocks (Webpack)
-
-# Production builds
-npm run build          # Build all assets for production
-npm run build:frontend # Build frontend only
-npm run build:gutenberg # Build Gutenberg only
-
-# Code quality
-npm run lint          # Run ESLint
-npm run lint:fix      # Fix ESLint issues automatically
-npm run type-check    # TypeScript type checking
+# Clean build files
+npm run clean
 ```
 
-### Build Systems
+## 📁 Project Structure
 
-1. **Frontend** (Webpack):
-   - Entry: `src/frontend/js/main.js`, `src/frontend/js/components.js`
-   - Output: `dist/frontend/`
-   - Features: Sass, PostCSS, Babel
+```
+src/
+├── components/           # Reusable React components
+│   ├── Select.jsx       # Custom react-select wrapper
+│   ├── Input.jsx        # Custom input component
+│   ├── FormField.jsx    # Form field wrapper
+│   └── index.js         # Component exports
+├── admin/
+│   └── js/
+│       └── template-settings.jsx  # Template settings React component
+├── gutenberg/
+│   └── index.js         # Gutenberg blocks entry point
+└── frontend/
+    └── js/
+        └── main.js      # Frontend JavaScript entry point
 
-2. **Admin** (Pure PHP):
-   - Location: `includes/Admin/SettingsPage.php`
-   - Features: PHP, HTML, Tailwind CSS, Alpine.js
+build/                   # Generated files (WordPress scripts output)
+├── admin/
+├── gutenberg/
+└── frontend/
+```
 
-3. **Gutenberg** (Webpack):
-   - Entry: `src/gutenberg/index.js`
-   - Output: `dist/gutenberg/`
-   - Features: WordPress blocks, Sass, TypeScript
+## 🛠️ Build System
 
-## Theme Architecture
+This theme uses **@wordpress/scripts** for:
 
-### PHP Classes (OOP)
+- ✅ **Automatic dependency management** - WordPress handles React/ReactDOM
+- ✅ **Asset optimization** - Minification, tree-shaking, code splitting
+- ✅ **WordPress integration** - Proper asset.php files with dependencies
+- ✅ **Development workflow** - Hot reloading and watch mode
+- ✅ **Production builds** - Optimized bundles
 
-- **Theme.php**: Main theme class, handles WordPress hooks
-- **Frontend/Scripts.php**: Frontend asset management
-- **Admin/Scripts.php**: Admin interface and menu management
-- **Blocks/BlockRegistry.php**: Gutenberg blocks registration
+## 🎯 Features
 
-### Pure PHP Admin Interface
+### Reusable Components
+- **CustomSelect** - WordPress-styled react-select component
+- **CustomInput** - Consistent input styling
+- **FormField** - Label + help text wrapper
 
-The admin interface is built with pure PHP, HTML, and Alpine.js, providing a fast and lightweight experience:
-
-- No build process required
-- Tailwind CSS for styling
-- Alpine.js for interactivity
-- Direct PHP integration
+### Template Settings
+- **React-powered** admin interface
+- **Template Type** - Header/Footer selection
+- **Display Options** - Entire site or specific pages
+- **Page Selection** - Multi-select with search
+- **Priority System** - Template hierarchy
 
 ### Gutenberg Blocks
+- **Custom blocks** with modern React
+- **Block editor** integration
+- **Responsive design** support
 
-Custom blocks included:
+## 🔧 Development
 
-1. **Hero Section**: Full-width hero with background image and overlay
-2. **Feature Card**: Card component with icon, title, and description
-3. **Testimonial**: Quote block with author attribution
-4. **Call to Action**: Centered CTA section
-5. **Pricing Table**: Responsive pricing grid
+### Adding New Components
 
-All blocks use modern styling and are fully responsive.
+1. Create component in `src/components/`
+2. Export from `src/components/index.js`
+3. Import in your React files: `import { CustomSelect } from '../../components'`
 
-## Customization
+### Adding New Admin Pages
+
+1. Create React component in `src/admin/js/`
+2. Add entry point to `webpack.config.js`
+3. Enqueue in `functions.php` using WordPress scripts asset files
 
 ### Adding New Blocks
 
-1. Create a new directory in `src/gutenberg/blocks/your-block/`
-2. Add the block files:
-   - `index.js` - Block registration and edit/save functions
-   - `style.scss` - Frontend styles
-   - `editor.scss` - Editor-only styles
-3. Import in `src/gutenberg/index.js`
-4. Add to the blocks array in `includes/Blocks/BlockRegistry.php`
+1. Create block in `src/gutenberg/blocks/`
+2. Register in `src/gutenberg/index.js`
+3. Build with `npm run build`
 
-### Modifying Admin Interface
+## 📦 Dependencies
 
-The admin interface is in `src/admin/`. Key files:
-- `main.tsx` - Entry point
-- `App.tsx` - Main application component
-- `components/ui/` - ShadCN UI components
+- **@wordpress/scripts** - Build system
+- **@wordpress/components** - WordPress UI components
+- **@wordpress/element** - React hooks and utilities
+- **react-select** - Advanced select component
+- **GSAP** - Animation library
 
-### Frontend Customization
+## 🎨 Styling
 
-Frontend assets are in `src/frontend/`:
-- `js/` - JavaScript files with GSAP integration
-- `scss/` - Sass stylesheets with Tailwind CSS
-- `scss/components/` - Component-specific styles
+- **Tailwind CSS** - Utility-first CSS framework
+- **SCSS** - Enhanced CSS with variables and mixins
+- **WordPress admin** - Consistent with WordPress design system
 
-### GSAP Animations
+## 🚀 Production
 
-The theme uses GSAP for professional animations:
-
-**Available Animation Classes:**
-- `.gsap-fade-in-up` - Fade in with upward motion
-- `.gsap-scroll-trigger` - Trigger animations on scroll
-- `.gsap-hover-lift` - Lift effect on hover
-- `.gsap-hover-scale` - Scale effect on hover
-- `.gsap-stagger-container` with `.gsap-stagger-item` - Staggered animations
-
-**Custom Animations:**
-```javascript
-import { GSAPAnimations } from '@/lib/gsap-animations';
-
-// Fade in animation
-GSAPAnimations.fadeInUp('.my-element');
-
-// Hero entrance
-GSAPAnimations.heroEntrance();
-
-// Stagger multiple elements
-GSAPAnimations.staggerIn(['.item1', '.item2', '.item3']);
+```bash
+npm run build
 ```
 
-## ShadCN UI Integration
+This generates optimized files in the `build/` directory:
+- Minified JavaScript bundles
+- Optimized CSS files
+- Asset dependency files for WordPress
 
-This theme includes a curated set of ShadCN UI components:
+## 📝 Notes
 
-- Button
-- Card
-- Input
-- Select
-- Dialog
-- Toast
-- And many more...
+- **WordPress scripts** automatically handles React externals
+- **Asset files** (.asset.php) contain dependency information
+- **Build folder** is used instead of `dist/` (WordPress scripts convention)
+- **Components are reusable** across admin and frontend
+- **Clean architecture** with separation of concerns
 
-Components are located in `src/components/ui/` and can be used in both Gutenberg blocks and the admin interface.
+---
 
-## Browser Support
-
-- Modern browsers (Chrome, Firefox, Safari, Edge)
-- IE11+ (with polyfills)
-- Mobile browsers
-
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Run tests and linting
-5. Submit a pull request
-
-## License
-
-GPL v2 or later
-
-## Support
-
-For support and documentation, please visit [your-website.com](https://your-website.com).
+**Built with ❤️ using @wordpress/scripts**

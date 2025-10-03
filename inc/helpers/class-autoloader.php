@@ -47,6 +47,16 @@ function autoloader( $resource = '' ) {
 			$file_name = sprintf( 'trait-%s', trim( strtolower( str_replace( '_', '-', $path[1] ) ) ) );
 			break;
 
+		case 'features':
+			$directory = 'features';
+			$file_name = sprintf( 'class-%s', trim( strtolower( str_replace( '_', '-', $path[1] ) ) ) );
+			break;
+
+		case 'core':
+			$directory = 'core';
+			$file_name = sprintf( 'class-%s', trim( strtolower( str_replace( '_', '-', $path[1] ) ) ) );
+			break;
+
 		case 'admin':
 			$directory = 'admin';
 			$file_name = sprintf( 'class-%s', trim( strtolower( str_replace( '_', '-', $path[1] ) ) ) );

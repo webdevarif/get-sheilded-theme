@@ -3,14 +3,11 @@
   "version": "1.0.0",
   "description": "Modern WordPress theme with OOP architecture, pure PHP admin, and Gutenberg blocks",
   "scripts": {
-    "dev": "concurrently \"npm run dev:frontend\" \"npm run dev:gutenberg\" \"npm run dev:admin\"",
-    "dev:frontend": "webpack --mode development --watch --config webpack.frontend.js",
-    "dev:gutenberg": "webpack --mode development --watch --config webpack.gutenberg.js",
-    "dev:admin": "webpack --mode development --watch --config webpack.admin.js",
-    "build": "npm run build:frontend && npm run build:gutenberg && npm run build:admin",
-    "build:frontend": "webpack --mode production --config webpack.frontend.js",
-    "build:gutenberg": "webpack --mode production --config webpack.gutenberg.js",
-    "build:admin": "webpack --mode production --config webpack.admin.js"
+    "build": "wp-scripts build",
+    "start": "wp-scripts start",
+    "dev": "wp-scripts start",
+    "clean": "rimraf dist",
+    "setup": "npm install && npm run build"
   },
   "dependencies": {
     "@babel/preset-react": "^7.27.1",
@@ -32,6 +29,7 @@
     "@babel/preset-typescript": "^7.27.1",
     "@types/node": "^20.10.0",
     "@wordpress/babel-preset-default": "^8.30.0",
+    "@wordpress/scripts": "^30.25.0",
     "autoprefixer": "^10.4.21",
     "babel-loader": "^9.1.3",
     "concurrently": "^8.2.2",
@@ -39,6 +37,7 @@
     "mini-css-extract-plugin": "^2.7.6",
     "postcss": "^8.5.6",
     "postcss-loader": "^7.3.3",
+    "rimraf": "^6.0.1",
     "sass": "^1.69.5",
     "sass-loader": "^13.3.2",
     "style-loader": "^3.3.3",
